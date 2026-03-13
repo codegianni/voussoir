@@ -68,15 +68,18 @@ layout: layouts/base.njk
         <button class="cite-btn" onclick="copyCitation()">Copia citazione</button>
       </div>
 
-      {% set articoliCorrelati = collections.articoli | reject("url", page.url) | slice(0, 2) %}
-      {% if articoliCorrelati.length %}
+      {% if collections.articoli.length > 1 %}
       <div class="sidebar-section">
         <div class="sidebar-label">Articoli correlati</div>
-        {% for art in articoliCorrelati %}
-        <div class="related-item">
-          <div class="related-topic">{{ art.data.tema }}</div>
-          <a href="{{ art.url }}" class="related-title">{{ art.data.title }}</a>
-        </div>
+        {% set shown = 0 %}
+        {% for art in collections.articoli %}
+          {% if art.url != page.url and shown < 2 %}
+          <div class="related-item">
+            <div class="related-topic">{{ art.data.tema }}</div>
+            <a href="{{ art.url }}" class="related-title">{{ art.data.title }}</a>
+          </div>
+          {% set shown = shown + 1 %}
+          {% endif %}
         {% endfor %}
       </div>
       {% endif %}
