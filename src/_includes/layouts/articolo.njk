@@ -1,0 +1,97 @@
+---
+layout: layouts/base.njk
+---
+
+<article>
+
+  <header class="article-header">
+    <div class="article-header-topic">{{ tema }}</div>
+
+    <h1 class="article-header-title">{{ title }}</h1>
+
+    {% if sottotitolo %}
+    <p class="article-header-subtitle">{{ sottotitolo }}</p>
+    {% endif %}
+
+    <div class="article-meta-row">
+      <div class="article-author">
+        <div class="author-avatar">{{ autore | truncate(2, true, '') | upper }}</div>
+        <div>
+          <div class="author-name">{{ autore }}</div>
+          <div class="author-role">{{ ruolo_autore }}</div>
+        </div>
+      </div>
+      <div class="article-meta-details">
+        <span>{{ page.date | dataItaliana }}</span>
+        <span>·</span>
+        <span>{{ content | tempoLettura }}</span>
+        {% if peer_reviewed %}
+        <span>·</span>
+        <span>Peer reviewed</span>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <div class="article-body">
+    <div class="article-content">
+      {{ content | safe }}
+
+      {% if note %}
+      <div class="footnotes">
+        <div class="footnotes-label">Note e riferimenti</div>
+        {% for n in note %}
+        <div class="footnote-item">
+          <div class="footnote-num">{{ loop.index }}</div>
+          <div class="footnote-text">{{ n | safe }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <aside class="article-sidebar">
+      {% if tags %}
+      <div class="sidebar-section">
+        <div class="sidebar-label">Temi</div>
+        {% for tag in tags %}
+        <span class="sidebar-tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Cita questo articolo</div>
+        <div class="cite-box">
+          {{ autore.split(' ')[1] }}, {{ autore.split(' ')[0][0] }}. ({{ page.date.getFullYear() }}). {{ title }}. <em>Voussoir</em>.
+        </div>
+        <button class="cite-btn" onclick="copyCitation()">Copia citazione</button>
+      </div>
+
+      {% set articoliCorrelati = collections.articoli | reject("page", page) | slice(0, 2) %}
+      {% if articoliCorrelati.length %}
+      <div class="sidebar-section">
+        <div class="sidebar-label">Articoli correlati</div>
+        {% for art in articoliCorrelati %}
+        <div class="related-item">
+          <div class="related-topic">{{ art.data.tema }}</div>
+          <a href="{{ art.url }}" class="related-title">{{ art.data.title }}</a>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </aside>
+  </div>
+
+</article>
+
+<script>
+function copyCitation() {
+  const text = document.querySelector('.cite-box').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.cite-btn');
+    btn.textContent = 'Copiato!';
+    setTimeout(() => btn.textContent = 'Copia citazione', 2000);
+  });
+}
+</script>

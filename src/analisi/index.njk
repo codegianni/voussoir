@@ -1,0 +1,30 @@
+---
+layout: layouts/base.njk
+title: Analisi
+description: Tutte le analisi di Voussoir su politiche pubbliche, governance europea, finanza pubblica e diritto.
+---
+
+<div class="page-header">
+  <h1 class="page-header-title">Analisi</h1>
+  <p class="page-header-desc">
+    Ricerca indipendente su politiche pubbliche, governance europea,
+    finanza pubblica e diritto. Rigore accademico, accessibile a tutti.
+  </p>
+</div>
+
+<div class="articles-list">
+  {% for articolo in collections.articoli %}
+  <a href="{{ articolo.url }}" class="article-list-item">
+    <div>
+      <div class="article-list-topic">{{ articolo.data.tema }}</div>
+      <div class="article-list-title">{{ articolo.data.title }}</div>
+      <div class="article-list-excerpt">{{ articolo.data.sottotitolo }}</div>
+    </div>
+    <div class="article-list-meta">
+      <span>{{ articolo.page.date | dataItaliana }}</span>
+      <span>{{ articolo.content | tempoLettura }}</span>
+      <span>{{ articolo.data.autore }}</span>
+    </div>
+  </a>
+  {% endfor %}
+</div>

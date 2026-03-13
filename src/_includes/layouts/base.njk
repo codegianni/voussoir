@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ description or 'Voussoir — rivista indipendente di analisi delle politiche pubbliche.' }}">
+  <title>{% if title %}{{ title }} — Voussoir{% else %}Voussoir{% endif %}</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-v">v<span>.</span></span>
+      <span class="nav-logo-name">voussoir</span>
+    </a>
+    <div class="nav-links">
+      <a href="/analisi/">Analisi</a>
+      <a href="/temi/">Temi</a>
+      <a href="/chi-siamo/">Chi siamo</a>
+      <a href="/consulenza/">Consulenza</a>
+    </div>
+    <a href="/contatti/" class="nav-cta">Contatti</a>
+  </nav>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer class="footer">
+    <span class="footer-logo">v<span>.</span></span>
+    <span class="footer-copy">© {{ page.date.getFullYear() }} Voussoir. Tutti i diritti riservati.</span>
+    <div class="footer-links">
+      <a href="/analisi/">Analisi</a>
+      <a href="/consulenza/">Consulenza</a>
+      <a href="/contatti/">Contatti</a>
+    </div>
+  </footer>
+
+</body>
+</html>
