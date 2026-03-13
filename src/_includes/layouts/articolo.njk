@@ -68,7 +68,7 @@ layout: layouts/base.njk
         <button class="cite-btn" onclick="copyCitation()">Copia citazione</button>
       </div>
 
-      {% set articoliCorrelati = collections.articoli | reject("page", page) | slice(0, 2) %}
+      {% set articoliCorrelati = collections.articoli | reject("url", page.url) | slice(0, 2) %}
       {% if articoliCorrelati.length %}
       <div class="sidebar-section">
         <div class="sidebar-label">Articoli correlati</div>
