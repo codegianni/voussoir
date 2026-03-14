@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-theme="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>The housing paradox: why European cities keep failing — Voussoir</title>
+  <meta name="description" content="Despite decades of housing policy, major European cities remain unaffordable for the middle class. A comparative analysis of failed strategies — and who found another way.">
+  <meta property="og:title" content="The housing paradox: why European cities keep failing — Voussoir">
+  <meta property="og:description" content="A comparative analysis of failed housing strategies across European cities — and who found another way.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://voussoir.eu/housing-paradox">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The housing paradox: why European cities keep failing — Voussoir">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --ink: #111111;
+      --ink-soft: #484848;
+      --ink-faint: #888888;
+      --paper: #ffffff;
+      --cream: #f2f2f2;
+      --rule: #d8d8d8;
+      --surface-dark: #111111;
+      --serif: 'Playfair Display', Georgia, serif;
+      --display: 'DM Serif Display', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ink: #e8e8e8;
+        --ink-soft: #969696;
+        --ink-faint: #585858;
+        --paper: #111111;
+        --cream: #1a1a1a;
+        --rule: #2a2a2a;
+        --surface-dark: #080808;
+      }
+    }
+
+    [data-theme="light"] {
+      --ink: #111111;
+      --ink-soft: #484848;
+      --ink-faint: #888888;
+      --paper: #ffffff;
+      --cream: #f2f2f2;
+      --rule: #d8d8d8;
+      --surface-dark: #111111;
+    }
+
+    [data-theme="dark"] {
+      --ink: #e8e8e8;
+      --ink-soft: #969696;
+      --ink-faint: #585858;
+      --paper: #111111;
+      --cream: #1a1a1a;
+      --rule: #2a2a2a;
+      --surface-dark: #080808;
+    }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    /* HEADER & NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      height: 64px;
+      background-color: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      z-index: 100;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .header-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .header-left {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-self: start;
+    }
+
+    .header-centre {
+      justify-self: center;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-self: end;
+    }
+
+    .site-logo {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .icon-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--ink);
+      stroke-width: 1.5;
+      fill: none;
+      transition: stroke 0.2s;
+    }
+
+    .consulting-btn {
+      border: 1px solid var(--ink);
+      padding: 8px 16px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .consulting-btn:hover {
+      background-color: var(--ink);
+      color: var(--paper);
+    }
+
+    /* MENU OVERLAY */
+    .menu-overlay {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background-color: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      padding: 48px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      max-height: calc(100vh - 64px);
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-20px);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 99;
+    }
+
+    .menu-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .menu-section h3 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .topic-link {
+      padding: 12px 16px;
+      border: 1px solid var(--rule);
+      font-family: var(--serif);
+      font-size: 16px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .topic-link:hover {
+      border-color: var(--ink);
+    }
+
+    .search-input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid var(--ink);
+      background: transparent;
+      padding: 8px 0;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--ink);
+      margin-bottom: 32px;
+    }
+
+    .search-input::placeholder {
+      color: var(--ink-faint);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-bottom-color: var(--ink-soft);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .nav-links a {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink-soft);
+    }
+
+    /* ARTICLE HEADER */
+    .article-header {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 32px 48px;
+      text-align: center;
+    }
+
+    .breadcrumb {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 24px;
+    }
+
+    .article-meta-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--ink-faint);
+    }
+
+    .category-tag {
+      border: 1px solid var(--rule);
+      padding: 6px 12px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .article-title {
+      font-family: var(--display);
+      font-size: 52px;
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .article-title em {
+      font-style: italic;
+    }
+
+    .article-deck {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      margin-bottom: 32px;
+    }
+
+    .divider {
+      height: 1px;
+      background-color: var(--rule);
+      margin: 32px 0;
+    }
+
+    .author-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    .author-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .separator {
+      color: var(--ink-faint);
+    }
+
+    /* HERO IMAGE */
+    .hero-image {
+      width: 100%;
+      height: 520px;
+      background: linear-gradient(160deg, #2a2a2a 0%, #111111 60%, #1e1e1e 100%);
+      margin-bottom: 24px;
+    }
+
+    .image-caption {
+      max-width: 760px;
+      margin: 0 auto 48px;
+      padding: 0 32px;
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--ink-faint);
+      text-align: center;
+    }
+
+    /* ARTICLE BODY */
+    .article-body {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .article-body p {
+      font-family: var(--sans);
+      font-size: 18px;
+      line-height: 1.85;
+      color: var(--ink-soft);
+      margin-bottom: 24px;
+    }
+
+    .article-body h2 {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--ink);
+      margin: 48px 0 16px;
+    }
+
+    .pullquote {
+      font-family: var(--display);
+      font-size: 28px;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--ink);
+      border-left: 3px solid var(--ink);
+      padding-left: 28px;
+      margin: 48px 0;
+    }
+
+    /* ARTICLE FOOTER */
+    .article-footer {
+      max-width: 680px;
+      margin: 64px auto 0;
+      padding: 0 32px;
+    }
+
+    .article-footer .divider {
+      margin: 32px 0;
+    }
+
+    .tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .tag {
+      border: 1px solid var(--rule);
+      padding: 8px 14px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .tag:hover {
+      border-color: var(--ink);
+    }
+
+    .share-row {
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--ink-soft);
+      flex-wrap: wrap;
+    }
+
+    .share-row strong {
+      color: var(--ink);
+    }
+
+    .share-row a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .share-row a:hover {
+      color: var(--ink-soft);
+    }
+
+    .share-divider {
+      color: var(--ink-faint);
+    }
+
+    .about-author {
+      background-color: var(--cream);
+      padding: 28px;
+      margin-bottom: 64px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .author-info {
+      flex: 1;
+    }
+
+    .author-name {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .author-bio {
+      font-family: var(--sans);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+
+    .author-link {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .author-link:hover {
+      color: var(--ink-soft);
+    }
+
+    /* RELATED ARTICLES */
+    .related-section {
+      background-color: var(--cream);
+      padding: 64px 32px;
+      margin-top: 64px;
+    }
+
+    .related-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .article-card {
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s;
+    }
+
+    .article-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 240px;
+      background: linear-gradient(135deg, #111111 0%, #2a2a2a 100%);
+      margin-bottom: 16px;
+    }
+
+    .card-meta {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-faint);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-tag {
+      border: 1px solid var(--rule);
+      padding: 4px 8px;
+      display: inline-block;
+      font-size: 11px;
+    }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .card-excerpt {
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+    }
+
+    /* NEWSLETTER */
+    .newsletter-section {
+      background-color: var(--cream);
+      padding: 64px 32px;
+      text-align: center;
+    }
+
+    .newsletter-container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .newsletter-heading {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      border: 1px solid var(--rule);
+      padding: 12px 16px;
+      font-family: var(--sans);
+      font-size: 14px;
+      background-color: var(--paper);
+      color: var(--ink);
+      transition: border-color 0.2s;
+    }
+
+    .newsletter-input:focus {
+      outline: none;
+      border-color: var(--ink);
+    }
+
+    .newsletter-input::placeholder {
+      color: var(--ink-faint);
+    }
+
+    .newsletter-button {
+      border: 1px solid var(--ink);
+      padding: 12px 24px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      background-color: var(--ink);
+      color: var(--paper);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .newsletter-button:hover {
+      background-color: var(--ink-soft);
+      border-color: var(--ink-soft);
+    }
+
+    /* ─── UNIFIED COMPACT FOOTER ─── */
+    .site-footer {
+      background: var(--paper);
+      border-top: 1px solid var(--rule);
+      padding: 40px 0 36px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    .footer-brand-name {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .footer-brand-desc {
+      font-size: 12px;
+      color: var(--ink-faint);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .footer-copy {
+      font-size: 11px;
+      color: var(--ink-faint);
+    }
+    .footer-copy a { color: inherit; }
+    .footer-col-head {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+      margin-bottom: 12px;
+    }
+    .footer-col-list { list-style: none; }
+    .footer-col-list li { margin-bottom: 8px; }
+    .footer-col-list a {
+      font-size: 13px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-col-list a:hover { color: var(--ink); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 16px;
+      }
+
+      .menu-overlay {
+        grid-template-columns: 1fr;
+        padding: 32px 16px;
+        gap: 32px;
+      }
+
+      .article-header {
+        padding: 48px 16px 36px;
+      }
+
+      .article-title {
+        font-size: 36px;
+      }
+
+      .article-deck {
+        font-size: 18px;
+      }
+
+      .article-body {
+        padding: 0 16px;
+      }
+
+      .article-body p {
+        font-size: 16px;
+      }
+
+      .hero-image {
+        height: 320px;
+      }
+
+      .articles-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-author {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <button class="icon-button" id="menu-toggle" aria-label="Toggle menu">
+          <svg viewBox="0 0 24 24">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <button class="icon-button" aria-label="Search">
+          <svg viewBox="0 0 24 24">
+            <circle cx="10" cy="10" r="6"></circle>
+            <line x1="14" y1="14" x2="21" y2="21"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="header-centre">
+        <a href="voussoir-homepage.html" class="site-logo">Voussoir.</a>
+      </div>
+      <div class="header-right">
+        <button class="icon-button" id="theme-toggle" aria-label="Toggle dark mode">
+          <svg id="sun-icon" viewBox="0 0 24 24" style="display: none;">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg id="moon-icon" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <a href="#" class="consulting-btn">Consulting</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MENU OVERLAY -->
+  <div class="menu-overlay" id="menu-overlay">
+    <div class="menu-section">
+      <h3>Topics</h3>
+      <div class="topics-grid">
+        <a href="#" class="topic-link">AI &amp; Regulation</a>
+        <a href="#" class="topic-link">Digital Governance</a>
+        <a href="#" class="topic-link">Data &amp; Privacy</a>
+        <a href="#" class="topic-link">GovTech</a>
+        <a href="#" class="topic-link">Public Administration</a>
+        <a href="#" class="topic-link">EU Policy</a>
+        <a href="#" class="topic-link">Comparative Policy</a>
+      </div>
+    </div>
+    <div class="menu-section">
+      <h3>Search</h3>
+      <input type="text" class="search-input" placeholder="Search articles...">
+      <div class="nav-links">
+        <a href="voussoir-homepage.html">Home</a>
+        <a href="voussoir-report.html">Policy Reports</a>
+        <a href="#">About</a>
+        <a href="#">Consulting</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE HEADER -->
+  <div class="article-header">
+    <div class="breadcrumb"><a href="voussoir-homepage.html" style="color:inherit;">Articles</a> → Digital Governance</div>
+
+    <div class="article-meta-line">
+      <span class="category-tag">Housing</span>
+      <span>14 March 2026</span>
+    </div>
+
+    <h1 class="article-title">The housing paradox: why European cities <em>keep failing</em></h1>
+
+    <p class="article-deck">Despite decades of housing policy, major European cities remain unaffordable for the middle class. A comparative analysis of failed strategies — and who found another way.</p>
+
+    <div class="divider"></div>
+
+    <div class="author-row">
+      <div class="author-avatar">GP</div>
+      <strong>Giovanni Perrini</strong>
+      <span>Policy Analyst</span>
+      <span class="separator">·</span>
+      <span>14 March 2026</span>
+      <span class="separator">·</span>
+      <span>8 min read</span>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE -->
+  <div class="hero-image"></div>
+  <div class="image-caption">European city housing shortage: structural policy failures across Amsterdam, Berlin, and Paris continue despite regulatory reforms</div>
+
+  <!-- ARTICLE BODY -->
+  <article class="article-body">
+    <p>The housing crisis in European cities presents a paradox that policymakers have struggled to resolve: despite unprecedented regulatory intervention, zoning reforms, and billions in public investment, housing affordability has deteriorated across Copenhagen, Amsterdam, Berlin, and Paris. The mechanisms of this failure are not primarily economic—they are political. The policies designed to expand housing supply have instead created a labyrinthine system of restrictions that prioritise heritage protection, neighbourhood conservation, and tenant advocacy over construction capacity.</p>
+
+    <p>Consider Berlin's experience over the past two decades. The city implemented strict rent controls and tenant protections that, in theory, should have improved accessibility. Yet housing completions fell by 40% after 2010, and purchase prices tripled. This inverse relationship between protective regulation and supply represents a critical policy blindspot: well-intentioned tenant protections can reduce investor confidence in new development, thereby shrinking the total housing pool and paradoxically harming the very residents these policies intended to protect.</p>
+
+    <p>The structural problem is that European cities have conflated two separate policy objectives: protecting existing residents from displacement, and expanding the housing stock for new residents. These goals require fundamentally different mechanisms. Protection requires regulation and subsidy; expansion requires liberalisation and incentive. When cities pursue both simultaneously, the regulatory burden often dominates, and expansion suffers.</p>
+
+    <div class="pullquote">"Well-intentioned tenant protections can reduce investor confidence in new development, thereby shrinking the total housing pool."</div>
+
+    <h2>The Amsterdam precedent</h2>
+
+    <p>Amsterdam offers a cautionary case study. Between 2015 and 2023, the city approved strict environmental review processes for all new construction, implemented aggressive heritage preservation zones covering 62% of the city's developable land, and introduced extensive community consultation requirements. The intent was defensible: preserve Amsterdam's character and ensure community input. The result was that median housing completion fell to 2,400 units annually, while the regional population grew by 140,000 residents. The shortage pushed median prices from €6,800 per square metre to €12,400.</p>
+
+    <p>What few policymakers acknowledged was the perverse incentive this created: existing homeowners benefited enormously from the artificial scarcity, gaining windfall appreciation; renters bore the cost; and new entrants to the city were systematically priced out. The policy inadvertently functioned as a regressive wealth transfer from young and mobile professionals to elderly property owners.</p>
+
+    <p>Meanwhile, cities like Vienna and Helsinki pursued an alternative strategy: massive public housing expansion programmes, land value capture through public ownership, and streamlined approval processes for both public and private development. Vienna's social housing stock now represents 62% of residential housing, and the median rent-to-income ratio remains stable at 22%—compared to 35% in Amsterdam and 40% in London. These cities invested political capital in accepting denser development and higher-rise construction, recognizing that housing supply was the binding constraint, not urban character.</p>
+
+    <h2>The Copenhagen synthesis</h2>
+
+    <p>Copenhagen has recently attempted a synthesis: maintain strict heritage zones in the inner city while creating "development zones" in secondary areas with streamlined approvals and public land contributions. This two-track approach acknowledges both the psychological importance of character preservation and the mathematical necessity of supply expansion. Early results suggest this is more promising than pure restriction, but the approach requires accepting that housing expansion will necessarily change the physical character of some areas—a political concession many city governments remain unwilling to make.</p>
+
+    <p>The deeper lesson is institutional. European cities developed planning systems in the 1960s and 1970s designed to constrain growth and prevent sprawl. These systems worked—too well. By the 2010s, when demand for urban living surged and housing became a critical policy problem, the regulatory machinery was already so entrenched that liberalisation proved politically impossible. Planners, heritage advocates, and incumbent residents had built coalitions powerful enough to block reform. The costs of this institutional sclerosis are now borne by younger generations and migrants, who have no political voice in these coalitions.</p>
+
+    <p>The path forward requires neither pure liberalisation nor pure regulation, but rather institutional reform: time-limited zoning exceptions for housing, public land contribution mechanisms that capture windfall gains for reinvestment, and most importantly, explicit acceptance that housing expansion will require visible change to urban form. This is a harder political sell than either status-quo protection or technocratic deregulation, but it is the only approach the available evidence suggests will actually work.</p>
+  </article>
+
+  <!-- ARTICLE FOOTER -->
+  <div class="article-footer">
+    <div class="divider"></div>
+
+    <div class="tags-row">
+      <a href="#" class="tag">Digital Governance</a>
+      <a href="#" class="tag">Public Administration</a>
+      <a href="#" class="tag">EU Policy</a>
+      <a href="#" class="tag">Comparative Policy</a>
+    </div>
+
+    <div class="share-row">
+      <strong>Share this article</strong>
+      <a href="#">Twitter/X</a>
+      <span class="share-divider">·</span>
+      <a href="#">LinkedIn</a>
+      <span class="share-divider">·</span>
+      <a href="#">Copy link</a>
+    </div>
+
+    <div class="about-author">
+      <div class="author-avatar" style="width: 64px; height: 64px; font-size: 24px; flex-shrink: 0;">GP</div>
+      <div class="author-info">
+        <div class="author-name">Giovanni Perrini</div>
+        <div class="author-bio">Policy analyst specialising in digital governance, GovTech, and EU public administration reform. MA in Public Management and Policy from USI Lugano, with a focus on comparative public sector digitalisation across European contexts.</div>
+        <a href="#" class="author-link">Get in touch</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- RELATED ARTICLES -->
+  <section class="related-section">
+    <div class="related-container">
+      <h2 class="section-header">More articles</h2>
+
+      <div class="articles-grid">
+        <a href="#" class="article-card">
+          <div class="card-image"></div>
+          <div class="card-meta">
+            <span class="card-tag">GovTech</span>
+            <span>7 March 2026</span>
+          </div>
+          <h3 class="card-title">Switzerland vs Italy: two models of public sector digitalisation</h3>
+          <p class="card-excerpt">A federal state with high institutional trust and a centralised one still recovering from administrative fragmentation — what their diverging e-government path tells us about reform.</p>
+        </a>
+
+        <a href="voussoir-report.html" class="article-card">
+          <div class="card-image"></div>
+          <div class="card-meta">
+            <span class="card-tag">EU Policy</span>
+            <span>28 February 2026</span>
+          </div>
+          <h3 class="card-title">Energy costs and industrial competitiveness: scenarios for Italy 2026–2030</h3>
+          <p class="card-excerpt">Policy report examining how rising energy prices impact Italy's industrial base, with three modelled scenarios for intervention through 2030.</p>
+        </a>
+
+        <a href="#" class="article-card">
+          <div class="card-image"></div>
+          <div class="card-meta">
+            <span class="card-tag">Comparative Policy</span>
+            <span>21 February 2026</span>
+          </div>
+          <h3 class="card-title">The AI Act one year on: who is actually complying?</h3>
+          <p class="card-excerpt">A comparative look at how France, Germany, and Italy are translating the EU's landmark AI regulation into national enforcement frameworks.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <div class="newsletter-container">
+      <h2 class="newsletter-heading">Subscribe to updates</h2>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+        <button type="submit" class="newsletter-button">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <a href="voussoir-homepage.html" class="footer-brand-name">Voussoir.</a>
+        <p class="footer-brand-desc">Independent policy analysis and strategic consulting by Giovanni Perrini.</p>
+        <p class="footer-copy">© 2026 Giovanni Perrini · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+      </div>
+      <div>
+        <p class="footer-col-head">Topics</p>
+        <ul class="footer-col-list">
+          <li><a href="#">AI &amp; Regulation</a></li>
+          <li><a href="#">Digital Governance</a></li>
+          <li><a href="#">Data &amp; Privacy</a></li>
+          <li><a href="#">GovTech</a></li>
+          <li><a href="#">Public Administration</a></li>
+          <li><a href="#">EU Policy</a></li>
+          <li><a href="#">Comparative Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">About</p>
+        <ul class="footer-col-list">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Consulting</a></li>
+          <li><a href="#">Publications</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">Follow</p>
+        <ul class="footer-col-list">
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">𝕏 / Twitter</a></li>
+          <li><a href="#">Bluesky</a></li>
+          <li><a href="#">RSS Feed</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Theme management
+    const themeToggle = document.getElementById('theme-toggle');
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const header = document.querySelector('header');
+
+    // Initialize theme
+    const savedTheme = localStorage.getItem('voussoir-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function updateThemeIcons() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+                     (prefersDark && !savedTheme);
+      sunIcon.style.display = isDark ? 'block' : 'none';
+      moonIcon.style.display = isDark ? 'none' : 'block';
+    }
+
+    if (savedTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else if (savedTheme === 'light') {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    updateThemeIcons();
+
+    // Theme toggle
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('voussoir-theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('voussoir-theme', 'dark');
+      }
+      updateThemeIcons();
+    });
+
+    // Menu toggle
+    menuToggle.addEventListener('click', () => {
+      menuOverlay.classList.toggle('is-open');
+      header.classList.toggle('menu-open');
+    });
+
+    // Close menu on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menuOverlay.classList.contains('is-open')) {
+        menuOverlay.classList.remove('is-open');
+        header.classList.remove('menu-open');
+      }
+    });
+
+    // Close menu when clicking overlay background (if outside menu content)
+    menuOverlay.addEventListener('click', (e) => {
+      if (e.target === menuOverlay) {
+        menuOverlay.classList.remove('is-open');
+        header.classList.remove('menu-open');
+      }
+    });
+  </script>
+
+</body>
+</html>

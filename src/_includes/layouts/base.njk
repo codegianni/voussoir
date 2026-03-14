@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="{{ description or 'Voussoir — rivista indipendente di analisi delle politiche pubbliche.' }}">
+  <meta name="description" content="{{ description or 'Voussoir — an independent journal of public policy analysis.' }}">
   <title>{% if title %}{{ title }} — Voussoir{% else %}Voussoir{% endif %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 
   <nav class="nav">
-    <a href="/" class="nav-logo">
-      <span class="nav-logo-v">v<span>.</span></span>
-      <span class="nav-logo-name">voussoir</span>
-    </a>
+    <a href="/" class="nav-logo">voussoir</a>
     <div class="nav-links">
-      <a href="/analisi/">Analisi</a>
-      <a href="/temi/">Temi</a>
-      <a href="/chi-siamo/">Chi siamo</a>
-      <a href="/consulenza/">Consulenza</a>
+      <a href="/analisi/">Analysis</a>
+      <a href="/temi/">Topics</a>
+      <a href="/chi-siamo/">About</a>
+      <a href="/consulenza/">Consulting</a>
     </div>
-    <a href="/contatti/" class="nav-cta">Contatti</a>
+    <a href="/contatti/" class="nav-cta">Contact ↗</a>
   </nav>
 
   <main>
@@ -29,14 +29,15 @@
   </main>
 
   <footer class="footer">
-    <span class="footer-logo">v<span>.</span></span>
-    <span class="footer-copy">© {{ page.date.getFullYear() }} Voussoir. Tutti i diritti riservati.</span>
+    <span class="footer-logo">voussoir</span>
+    <span class="footer-copy">© 2026 Voussoir. All rights reserved.</span>
     <div class="footer-links">
-      <a href="/analisi/">Analisi</a>
-      <a href="/consulenza/">Consulenza</a>
-      <a href="/contatti/">Contatti</a>
+      <a href="/analisi/">Analysis</a>
+      <a href="/consulenza/">Consulting</a>
+      <a href="/contatti/">Contact</a>
     </div>
   </footer>
 
+  <script src="/js/main.js" defer></script>
 </body>
 </html>

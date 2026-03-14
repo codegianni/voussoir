@@ -1,0 +1,170 @@
+---
+layout: layouts/base.njk
+title: Voussoir
+description: An independent journal of public policy analysis. Academic rigour, European perspective, professional vocation.
+---
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Public policy · Independent analysis</div>
+  <h1 class="hero-title">
+    <span class="line-wrap"><span class="line" style="--i:0">Building arches</span></span>
+    <span class="line-wrap"><span class="line" style="--i:1">that <em>hold</em></span></span>
+    <span class="line-wrap"><span class="line" style="--i:2">through time.</span></span>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      Voussoir is an independent journal of public policy analysis.
+      Academic rigour, European perspective, professional vocation.
+    </p>
+    <a href="/analisi/" class="hero-btn">Read the analyses →</a>
+  </div>
+</section>
+
+<!-- MARQUEE TICKER -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">EU Policy</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">Public Finance</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">Constitutional Law</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">European Governance</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">International Relations</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">PNRR</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">Open Access</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">Independent Analysis</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">EU Policy</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">Public Finance</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">Constitutional Law</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">European Governance</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">International Relations</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">PNRR</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">Open Access</span>
+    <span class="marquee-sep">·</span>
+    <span class="marquee-item">Independent Analysis</span>
+    <span class="marquee-sep">·</span>
+  </div>
+</div>
+
+<!-- SUBJECT AREAS -->
+<div class="topics-section">
+  <div class="topics-section-header">
+    <span class="topics-section-label">Subject areas</span>
+  </div>
+  <a href="/temi/eu-policy/" class="topic-item" style="--tc:var(--eu)">
+    <span class="topic-name">EU Policy</span>
+    <span class="topic-count">(05)</span>
+  </a>
+  <a href="/temi/public-finance/" class="topic-item" style="--tc:var(--finance)">
+    <span class="topic-name">Public Finance</span>
+    <span class="topic-count">(03)</span>
+  </a>
+  <a href="/temi/constitutional-law/" class="topic-item" style="--tc:var(--law)">
+    <span class="topic-name">Constitutional Law</span>
+    <span class="topic-count">(02)</span>
+  </a>
+  <a href="/temi/governance/" class="topic-item" style="--tc:var(--governance)">
+    <span class="topic-name">European Governance</span>
+    <span class="topic-count">(04)</span>
+  </a>
+  <a href="/temi/international/" class="topic-item" style="--tc:var(--international)">
+    <span class="topic-name">International Relations</span>
+    <span class="topic-count">(01)</span>
+  </a>
+</div>
+
+<!-- FEATURED ARTICLE -->
+{% set primo = collections.articoli | first %}
+{% if primo %}
+<div class="feature-block">
+  <div class="feature-label">Featured</div>
+  <a href="{{ primo.url }}" class="feature-title">{{ primo.data.title }}</a>
+  <div class="feature-sub">{{ primo.data.sottotitolo }}</div>
+</div>
+{% endif %}
+
+<!-- STATS STRIP -->
+<div class="number-strip">
+  <div class="number-cell">
+    <div class="number-value">{{ collections.articoli | length }}</div>
+    <div class="number-label">Analyses published</div>
+  </div>
+  <div class="number-cell">
+    <div class="number-value">4</div>
+    <div class="number-label">Subject areas</div>
+  </div>
+  <div class="number-cell">
+    <div class="number-value">EU</div>
+    <div class="number-label">European perspective</div>
+  </div>
+  <div class="number-cell">
+    <div class="number-value">OA</div>
+    <div class="number-label">Open access</div>
+  </div>
+</div>
+
+<!-- LATEST ANALYSES -->
+<div class="section-bar">
+  <span class="section-title">Latest analyses</span>
+  <a href="/analisi/" class="section-all">View all →</a>
+</div>
+
+<div class="articles-grid">
+  {% for articolo in collections.articoli | slice(0, 3) %}
+  <a href="{{ articolo.url }}" class="article-card">
+    <div class="article-topic">{{ articolo.data.tema }}</div>
+    <div class="article-title">{{ articolo.data.title }}</div>
+    <div class="article-excerpt">{{ articolo.data.sottotitolo }}</div>
+    <div class="article-meta">
+      <span>{{ articolo.data.autore }}</span>
+      <span class="meta-dot"></span>
+      <span>{{ articolo.content | tempoLettura }}</span>
+      <span class="meta-dot"></span>
+      <span>{{ articolo.page.date | dataItaliana }}</span>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<!-- BOTTOM PANELS -->
+<div class="bottom-strip">
+  <div class="consulting-panel">
+    <div class="consulting-label">Consulting</div>
+    <div class="consulting-title">European project design<br>and <em>public policy</em></div>
+    <div class="consulting-desc">
+      Professional support for public bodies, organisations and firms
+      in policy design and European funding access.
+    </div>
+    <a href="/consulenza/" class="consulting-btn">Explore services →</a>
+  </div>
+
+  <div class="about-panel">
+    <div class="about-label">Founder</div>
+    <div class="about-name">Giovanni Perrini</div>
+    <div class="about-role">Policy analyst · MA Economics & Communication, USI Lugano</div>
+    <div class="about-bio">
+      Researcher and public policy analyst with experience in European governance,
+      public finance and institutional communication. Graduated magna cum laude
+      in Lugano, visiting scholar in Berne and Athens.
+    </div>
+    <div class="tags">
+      <span class="tag">EU Policy</span>
+      <span class="tag">PNRR</span>
+      <span class="tag">Governance</span>
+      <span class="tag">Europrogettazione</span>
+    </div>
+  </div>
+</div>

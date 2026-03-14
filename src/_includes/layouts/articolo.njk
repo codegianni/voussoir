@@ -39,7 +39,7 @@ layout: layouts/base.njk
 
       {% if note %}
       <div class="footnotes">
-        <div class="footnotes-label">Note e riferimenti</div>
+        <div class="footnotes-label">Notes &amp; References</div>
         {% for n in note %}
         <div class="footnote-item">
           <div class="footnote-num">{{ loop.index }}</div>
@@ -53,7 +53,7 @@ layout: layouts/base.njk
     <aside class="article-sidebar">
       {% if tags %}
       <div class="sidebar-section">
-        <div class="sidebar-label">Temi</div>
+        <div class="sidebar-label">Topics</div>
         {% for tag in tags %}
         <span class="sidebar-tag">{{ tag }}</span>
         {% endfor %}
@@ -61,16 +61,16 @@ layout: layouts/base.njk
       {% endif %}
 
       <div class="sidebar-section">
-        <div class="sidebar-label">Cita questo articolo</div>
+        <div class="sidebar-label">Cite this article</div>
         <div class="cite-box">
           {{ autore.split(' ')[1] }}, {{ autore.split(' ')[0][0] }}. ({{ page.date.getFullYear() }}). {{ title }}. <em>Voussoir</em>.
         </div>
-        <button class="cite-btn" onclick="copyCitation()">Copia citazione</button>
+        <button class="cite-btn" id="cite-btn">Copy citation</button>
       </div>
 
       {% if collections.articoli.length > 1 %}
       <div class="sidebar-section">
-        <div class="sidebar-label">Articoli correlati</div>
+        <div class="sidebar-label">Related articles</div>
         {% set shown = 0 %}
         {% for art in collections.articoli %}
           {% if art.url != page.url and shown < 2 %}
@@ -88,13 +88,3 @@ layout: layouts/base.njk
 
 </article>
 
-<script>
-function copyCitation() {
-  const text = document.querySelector('.cite-box').innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('.cite-btn');
-    btn.textContent = 'Copiato!';
-    setTimeout(() => btn.textContent = 'Copia citazione', 2000);
-  });
-}
-</script>
