@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>About — Voussoir</title>
+  <meta name="description" content="About Voussoir and Giovanni Perrini. Independent policy analysis and strategic consulting on digital governance, AI regulation, and EU public administration.">
+  <meta property="og:title" content="About — Voussoir">
+  <meta property="og:description" content="About Voussoir and Giovanni Perrini. Independent policy analysis and strategic consulting.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://voussoir.eu/about/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="About — Voussoir">
+  <meta name="twitter:description" content="About Voussoir and Giovanni Perrini. Independent policy analysis and strategic consulting.">
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg?v=2">
+  <link rel="alternate icon" type="image/png" href="/img/favicon.png?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─── LIGHT TOKENS ─────────────────────────────────── */
+    :root {
+      --ink:          #111111;
+      --ink-soft:     #484848;
+      --ink-faint:    #888888;
+      --paper:        #ffffff;
+      --cream:        #f2f2f2;
+      --rule:         #d8d8d8;
+      --surface-dark: #111111;
+
+      --serif:   'Playfair Display', Georgia, serif;
+      --display: 'DM Serif Display', Georgia, serif;
+      --sans:    'Inter', system-ui, sans-serif;
+    }
+
+    /* ─── DARK TOKENS (system) ─────────────────────────── */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ink:          #e8e8e8;
+        --ink-soft:     #969696;
+        --ink-faint:    #585858;
+        --paper:        #111111;
+        --cream:        #1a1a1a;
+        --rule:         #2a2a2a;
+        --surface-dark: #080808;
+      }
+    }
+
+    /* ─── DARK TOKENS (manual) ─────────────────────────── */
+    [data-theme="dark"] {
+      --ink:          #e8e8e8;
+      --ink-soft:     #969696;
+      --ink-faint:    #585858;
+      --paper:        #111111;
+      --cream:        #1a1a1a;
+      --rule:         #2a2a2a;
+      --surface-dark: #080808;
+    }
+
+    /* ─── LIGHT TOKENS (manual override) ──────────────── */
+    [data-theme="light"] {
+      --ink:          #111111;
+      --ink-soft:     #484848;
+      --ink-faint:    #888888;
+      --paper:        #ffffff;
+      --cream:        #f2f2f2;
+      --rule:         #d8d8d8;
+      --surface-dark: #111111;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    /* ─── UTILITY ──────────────────────────────────────── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+    .tag {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+    .tag--filled {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* ─── HEADER / NAV ─────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .nav-inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 64px;
+      padding: 0 24px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .site-logo {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      line-height: 1;
+      grid-column: 2;
+      justify-self: center;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: flex-end;
+    }
+
+    .nav-icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      transition: opacity 0.2s;
+    }
+    .nav-icon-btn:hover { opacity: 0.5; }
+    .nav-icon-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    .icon-close { display: none; }
+    .icon-burger { display: block; }
+    .menu-open .icon-close  { display: block; }
+    .menu-open .icon-burger { display: none; }
+
+    .icon-sun  { display: none; }
+    .icon-moon { display: block; }
+    [data-theme="dark"]  .icon-sun  { display: block; }
+    [data-theme="dark"]  .icon-moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme="light"]) .icon-sun  { display: block; }
+      html:not([data-theme="light"]) .icon-moon { display: none; }
+    }
+
+    .nav-cta {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      padding: 7px 16px;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* ─── MENU OVERLAY ─────────────────────────────────── */
+    .nav-overlay {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: var(--paper);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      z-index: 199;
+      padding: 52px 0 60px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .nav-overlay.is-open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .overlay-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .overlay-topics-label,
+    .overlay-search-label {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 28px;
+    }
+
+    .overlay-topics {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .overlay-topics li a {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.25;
+      display: block;
+      padding: 10px 0;
+      transition: opacity 0.2s;
+    }
+    .overlay-topics li a:hover { opacity: 0.4; }
+    .overlay-topics li:nth-child(odd)  a { padding-right: 32px; }
+    .overlay-topics li:nth-child(even) a { padding-left: 32px; }
+    .overlay-topics li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+    .overlay-topics li:last-child:nth-child(odd) a { padding-right: 0; border-left: none; }
+
+    .overlay-search-form {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      gap: 8px;
+    }
+    .overlay-search-input {
+      font-family: var(--serif);
+      font-size: 20px;
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--ink);
+      flex: 1;
+      padding: 10px 0;
+    }
+    .overlay-search-input::placeholder {
+      color: var(--ink-faint);
+      font-style: italic;
+    }
+    .overlay-search-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      padding: 10px 0;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .overlay-search-btn:hover { color: var(--ink); }
+
+    /* ─── FOOTER ────────────────────────────────────────── */
+    .site-footer {
+      background: var(--paper);
+      border-top: 1px solid var(--rule);
+      padding: 40px 0 36px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    .footer-brand-name {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .footer-brand-desc {
+      font-size: 12px;
+      color: var(--ink-faint);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .footer-copy {
+      font-size: 11px;
+      color: var(--ink-faint);
+    }
+    .footer-copy a { color: inherit; }
+    .footer-col-head {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+      margin-bottom: 12px;
+    }
+    .footer-col-list { list-style: none; }
+    .footer-col-list li { margin-bottom: 8px; }
+    .footer-col-list a {
+      font-size: 13px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-col-list a:hover { color: var(--ink); }
+
+    /* ─── PAGE SECTIONS ────────────────────────────────── */
+    .page-hero {
+      background: var(--surface-dark);
+      color: #e8e8e8;
+      padding: 96px 0 80px;
+      transition: background 0.3s;
+    }
+    .page-hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .page-hero-eyebrow {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(232,232,232,0.5);
+      margin-bottom: 20px;
+    }
+    .page-hero-title {
+      font-family: var(--display);
+      font-size: clamp(36px, 4vw, 56px);
+      line-height: 1.15;
+      color: #e8e8e8;
+      margin-bottom: 24px;
+      max-width: 680px;
+    }
+    .page-hero-text {
+      font-size: 17px;
+      line-height: 1.75;
+      color: rgba(232,232,232,0.65);
+      max-width: 620px;
+    }
+
+    .page-section {
+      padding: 72px 0;
+    }
+    .page-section--light {
+      background: var(--paper);
+    }
+    .page-section--cream {
+      background: var(--cream);
+    }
+    .page-section--dark {
+      background: var(--surface-dark);
+      color: #e8e8e8;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .section-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 32px;
+    }
+    .page-section--dark .section-label {
+      color: rgba(232,232,232,0.4);
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(28px, 3vw, 42px);
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .page-section--dark .section-title {
+      color: #e8e8e8;
+    }
+
+    .section-text {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+      margin-bottom: 24px;
+    }
+    .page-section--dark .section-text {
+      color: rgba(232,232,232,0.6);
+    }
+
+    /* Bio section grid */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .bio-avatar {
+      width: 180px;
+      height: 180px;
+      background: var(--ink);
+      color: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--display);
+      font-size: 72px;
+      font-weight: 400;
+      letter-spacing: -1px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .bio-content h2 {
+      font-family: var(--display);
+      font-size: 32px;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .bio-role {
+      font-size: 16px;
+      color: var(--ink-soft);
+      margin-bottom: 28px;
+      font-weight: 500;
+    }
+
+    /* Focus areas grid */
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 48px;
+      margin-top: 40px;
+    }
+
+    .focus-item h3 {
+      font-family: var(--serif);
+      font-size: 20px;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .focus-item p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--ink-soft);
+    }
+
+    .page-section--cream .focus-item h3 {
+      color: var(--ink);
+    }
+
+    .page-section--cream .focus-item p {
+      color: var(--ink-soft);
+    }
+
+    /* CTA section */
+    .cta-section {
+      padding: 56px 0;
+    }
+
+    .cta-box {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .cta-text {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--ink-soft);
+      margin-bottom: 32px;
+    }
+    .page-section--dark .cta-text {
+      color: rgba(232,232,232,0.6);
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      padding: 12px 28px;
+      border-radius: 999px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .cta-button:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .page-section--dark .cta-button {
+      color: #e8e8e8;
+      border-color: #e8e8e8;
+    }
+    .page-section--dark .cta-button:hover {
+      background: #e8e8e8;
+      color: var(--surface-dark);
+    }
+
+    /* ─── RESPONSIVE ───────────────────────────────────── */
+    @media (max-width: 768px) {
+      .bio-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .bio-avatar {
+        width: 140px;
+        height: 140px;
+        font-size: 56px;
+      }
+      .focus-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .overlay-inner { grid-template-columns: 1fr; gap: 40px; }
+      .overlay-topics { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .container { padding: 0 20px; }
+    }
+    @media (max-width: 480px) {
+      .page-hero { padding: 56px 0 48px; }
+      .page-section { padding: 48px 0; }
+      .section-inner { padding: 0 16px; }
+      .page-hero-title { font-size: 28px; }
+      .footer-inner { grid-template-columns: 1fr; padding: 0 16px; }
+      .container { padding: 0 16px; }
+      .cta-box { padding: 0 16px; }
+      .page-hero-title { margin-bottom: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── HEADER ─────────────────────────────────────── -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-inner">
+      <div class="nav-left">
+        <button class="nav-icon-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+          <svg class="icon-burger" viewBox="0 0 24 24">
+            <line x1="3" y1="6"  x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6"  y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+        <button class="nav-icon-btn" id="searchToggle" aria-label="Search" title="Search">
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"/>
+            <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+          </svg>
+        </button>
+      </div>
+      <a href="/" class="site-logo">Voussoir.</a>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="icon-moon" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1"    x2="12" y2="3"/>
+            <line x1="12" y1="21"   x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22"   x2="5.64"  y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1"  y1="12" x2="3"  y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22"  y1="19.78" x2="5.64"  y2="18.36"/>
+            <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <a href="/consulting/" class="nav-cta">Consulting</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ─── MENU OVERLAY ──────────────────────────────── -->
+  <div class="nav-overlay" id="navOverlay" role="dialog" aria-label="Navigation menu">
+    <div class="overlay-inner">
+      <div>
+        <div class="overlay-topics-label">Topics</div>
+        <ul class="overlay-topics">
+          <li><a href="/voussoir-archive/?topic=ai-regulation">AI &amp; Regulation</a></li>
+          <li><a href="/voussoir-archive/?topic=digital-governance">Digital Governance</a></li>
+          <li><a href="/voussoir-archive/?topic=data-privacy">Data &amp; Privacy</a></li>
+          <li><a href="/voussoir-archive/?topic=govtech">GovTech</a></li>
+          <li><a href="/voussoir-archive/?topic=public-administration">Public Administration</a></li>
+          <li><a href="/voussoir-archive/?topic=eu-policy">EU Policy</a></li>
+          <li><a href="/voussoir-archive/?topic=comparative-policy">Comparative Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="overlay-search-label">Search</div>
+        <form class="overlay-search-form" onsubmit="return false;">
+          <input class="overlay-search-input" type="search" placeholder="Search articles and reports…" />
+          <button class="overlay-search-btn" aria-label="Go" type="submit">Go</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── HERO ──────────────────────────────────────── -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-eyebrow">About</div>
+      <h1 class="page-hero-title">Rigorous analysis. Independent thinking. No agenda.</h1>
+      <p class="page-hero-text">Voussoir is an independent policy analysis and consulting platform built on one principle: that honest analysis and institutional independence are not in tension — they are the same thing.</p>
+    </div>
+  </section>
+
+  <!-- ─── BIO SECTION ────────────────────────────────── -->
+  <section class="page-section page-section--light">
+    <div class="section-inner">
+      <div class="bio-grid">
+        <div class="bio-avatar">GP</div>
+        <div class="bio-content">
+          <h2>Giovanni Perrini</h2>
+          <div class="bio-role">Policy Analyst &amp; Strategic Consultant</div>
+          <p class="section-text">I specialise in European governance, digital regulation, and public sector reform. My work draws on a background in political economy, comparative public policy, and European integration, developed at the Università della Svizzera italiana and the University of Bern.</p>
+          <p class="section-text">Voussoir was built to produce analysis that is genuinely independent, methodologically rigorous, and written to be read rather than filed. The platform sits at the intersection of academic depth and policy relevance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOCUS AREAS ────────────────────────────────── -->
+  <section class="page-section page-section--cream">
+    <div class="section-inner">
+      <div class="section-label">Focus Areas</div>
+      <div class="focus-grid">
+        <div class="focus-item">
+          <h3>AI &amp; Digital Governance</h3>
+          <p>The EU's emerging regulatory architecture for AI, platforms, and data. From the AI Act to the DGA, tracking how Europe governs the digital economy.</p>
+        </div>
+        <div class="focus-item">
+          <h3>Public Administration &amp; GovTech</h3>
+          <p>Administrative reform, digitalisation of public services, and the governance challenges of technological adoption in the public sector.</p>
+        </div>
+        <div class="focus-item">
+          <h3>EU Policy &amp; Institutions</h3>
+          <p>The mechanics of EU policy processes, institutional dynamics, and how regulatory decisions are made, contested, and implemented.</p>
+        </div>
+        <div class="focus-item">
+          <h3>Geoeconomics &amp; Strategic Autonomy</h3>
+          <p>Trade policy, industrial strategy, and the EU's efforts to build economic and technological sovereignty.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA SECTION ───────────────────────────────── -->
+  <section class="page-section page-section--light cta-section">
+    <div class="cta-box">
+      <p class="cta-text">If you're an institution, foundation, or organisation that needs policy expertise you can rely on — not just a literature review dressed up as analysis — get in touch.</p>
+      <a href="/consulting/" class="cta-button">Consulting services →</a>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <a href="#" class="footer-brand-name">Voussoir.</a>
+        <p class="footer-brand-desc">Independent policy analysis and strategic consulting by Giovanni Perrini.</p>
+        <p class="footer-copy">© 2026 Giovanni Perrini · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+      </div>
+      <div>
+        <p class="footer-col-head">Topics</p>
+        <ul class="footer-col-list">
+          <li><a href="/voussoir-archive/?topic=ai-regulation">AI &amp; Regulation</a></li>
+          <li><a href="/voussoir-archive/?topic=digital-governance">Digital Governance</a></li>
+          <li><a href="/voussoir-archive/?topic=data-privacy">Data &amp; Privacy</a></li>
+          <li><a href="/voussoir-archive/?topic=govtech">GovTech</a></li>
+          <li><a href="/voussoir-archive/?topic=public-administration">Public Administration</a></li>
+          <li><a href="/voussoir-archive/?topic=eu-policy">EU Policy</a></li>
+          <li><a href="/voussoir-archive/?topic=comparative-policy">Comparative Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">About</p>
+        <ul class="footer-col-list">
+          <li><a href="/about/">About</a></li>
+          <li><a href="/consulting/">Consulting</a></li>
+          <li><a href="#">Publications</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">Follow</p>
+        <ul class="footer-col-list">
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">𝕏 / Twitter</a></li>
+          <li><a href="#">Bluesky</a></li>
+          <li><a href="#">RSS Feed</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── SCRIPTS ─────────────────────────────────────── -->
+  <script>
+    (function () {
+      const html        = document.documentElement;
+      const themeBtn    = document.getElementById('themeToggle');
+      const menuBtn     = document.getElementById('menuToggle');
+      const searchBtn   = document.getElementById('searchToggle');
+      const overlay     = document.getElementById('navOverlay');
+      const header      = document.getElementById('siteHeader');
+      const searchInput = overlay.querySelector('.overlay-search-input');
+      const KEY         = 'voussoir-theme';
+
+      const saved = localStorage.getItem(KEY);
+      if (saved === 'dark' || saved === 'light') html.setAttribute('data-theme', saved);
+
+      function isDark() {
+        const t = html.getAttribute('data-theme');
+        if (t === 'dark')  return true;
+        if (t === 'light') return false;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+
+      themeBtn.addEventListener('click', function () {
+        const next = isDark() ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem(KEY, next);
+      });
+
+      window.matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', function () {
+          if (!localStorage.getItem(KEY)) html.setAttribute('data-theme', '');
+        });
+
+      let menuOpen = false;
+
+      function openMenu() {
+        menuOpen = true;
+        overlay.classList.add('is-open');
+        header.classList.add('menu-open');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        menuBtn.setAttribute('aria-label', 'Close menu');
+      }
+
+      function closeMenu() {
+        menuOpen = false;
+        overlay.classList.remove('is-open');
+        header.classList.remove('menu-open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Open menu');
+      }
+
+      menuBtn.addEventListener('click', function () {
+        menuOpen ? closeMenu() : openMenu();
+      });
+
+      searchBtn.addEventListener('click', function () {
+        if (!menuOpen) openMenu();
+        setTimeout(function () { searchInput.focus(); }, 50);
+      });
+
+      overlay.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menuOpen) closeMenu();
+      });
+    })();
+  </script>
+
+  {% include "partials/cookie-banner.njk" %}
+
+</body>
+</html>
