@@ -575,8 +575,11 @@
         grid-template-columns: 1fr;
         gap: 32px;
       }
-      .overlay-inner { grid-template-columns: 1fr; gap: 40px; }
-      .overlay-topics { grid-template-columns: 1fr 1fr; }
+      .overlay-inner { grid-template-columns: 1fr; gap: 32px; }
+      .overlay-topics { grid-template-columns: 1fr; }
+      .overlay-topics li:nth-child(odd) a { padding-right: 0; }
+      .overlay-topics li:nth-child(even) a { padding-left: 0; }
+      .overlay-search-input { min-width: 0; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
       .container { padding: 0 20px; }
     }
