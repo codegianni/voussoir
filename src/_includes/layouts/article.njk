@@ -773,7 +773,7 @@
       <h2 class="section-header">More articles</h2>
 
       <div class="articles-grid">
-        {% set relatedArticles = collections.allContent | reject('url', page.url) | slice(0, 3) %}
+        {% set relatedArticles = collections.allContent | rejectattr("url", "equalto", page.url) | slice(0, 3) %}
         {% for post in relatedArticles %}
         <a href="{{ post.url }}" class="article-card">
           <div class="card-image"></div>

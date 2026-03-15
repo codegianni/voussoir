@@ -554,7 +554,7 @@
     <div class="more-reports-inner">
       <h2>More reports</h2>
       <div class="reports-grid">
-        {% set relatedReports = collections.reports | reject('url', page.url) | slice(0, 3) %}
+        {% set relatedReports = collections.reports | rejectattr("url", "equalto", page.url) | slice(0, 3) %}
         {% for post in relatedReports %}
         <div>
           <div class="report-card-num">{{ post.data.reportNumber }}</div>
