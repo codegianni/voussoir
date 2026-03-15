@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>All Articles &amp; Reports — Voussoir</title>
+  <meta name="description" content="Browse all articles and policy reports published by Voussoir — independent analysis on digital governance, AI regulation, GovTech, and EU public administration.">
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg?v=2">
+  <link rel="alternate icon" type="image/png" href="/img/favicon.png?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --ink:          #111111;
+      --ink-soft:     #484848;
+      --ink-faint:    #888888;
+      --paper:        #ffffff;
+      --cream:        #f2f2f2;
+      --rule:         #d8d8d8;
+      --serif:   'Playfair Display', Georgia, serif;
+      --display: 'DM Serif Display', Georgia, serif;
+      --sans:    'Inter', system-ui, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ink: #e8e8e8; --ink-soft: #969696; --ink-faint: #585858;
+        --paper: #111111; --cream: #1a1a1a; --rule: #2a2a2a;
+      }
+    }
+    [data-theme="dark"] {
+      --ink: #e8e8e8; --ink-soft: #969696; --ink-faint: #585858;
+      --paper: #111111; --cream: #1a1a1a; --rule: #2a2a2a;
+    }
+    [data-theme="light"] {
+      --ink: #111111; --ink-soft: #484848; --ink-faint: #888888;
+      --paper: #ffffff; --cream: #f2f2f2; --rule: #d8d8d8;
+    }
+
+    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); margin: 0; padding: 0; }
+    a { color: inherit; }
+
+    /* ─── NAV (identical to all pages) ──────────────────── */
+    .site-header {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--paper); border-bottom: 1px solid var(--rule);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .nav-inner {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; height: 64px; padding: 0 24px;
+    }
+    .nav-left { display: flex; align-items: center; gap: 20px; }
+    .site-logo {
+      font-family: var(--serif); font-size: 26px; font-weight: 700;
+      letter-spacing: -0.5px; color: var(--ink); line-height: 1;
+      grid-column: 2; justify-self: center; white-space: nowrap; text-decoration: none;
+    }
+    .nav-right { display: flex; align-items: center; gap: 16px; justify-content: flex-end; }
+    .nav-icon-btn {
+      background: none; border: none; cursor: pointer; color: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      padding: 4px; transition: opacity 0.2s;
+    }
+    .nav-icon-btn:hover { opacity: 0.5; }
+    .nav-icon-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .icon-close { display: none; } .icon-burger { display: block; }
+    .menu-open .icon-close { display: block; } .menu-open .icon-burger { display: none; }
+    .icon-sun { display: none; } .icon-moon { display: block; }
+    [data-theme="dark"] .icon-sun { display: block; } [data-theme="dark"] .icon-moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme="light"]) .icon-sun { display: block; }
+      html:not([data-theme="light"]) .icon-moon { display: none; }
+    }
+    .nav-cta {
+      font-family: var(--sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink);
+      border: 1px solid var(--ink); padding: 7px 16px; border-radius: 999px;
+      white-space: nowrap; transition: background 0.2s, color 0.2s; text-decoration: none;
+    }
+    .nav-cta:hover { background: var(--ink); color: var(--paper); }
+    .nav-overlay {
+      position: fixed; top: 64px; left: 0; right: 0; background: var(--paper);
+      border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+      z-index: 199; padding: 48px 0 56px;
+      opacity: 0; pointer-events: none; transform: translateY(-8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .nav-overlay.is-open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .overlay-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 32px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    }
+    .overlay-topics-label, .overlay-search-label {
+      font-family: var(--sans); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--ink-faint); margin-bottom: 24px;
+    }
+    .overlay-topics { list-style: none; display: grid; grid-template-columns: 1fr 1fr; }
+    .overlay-topics li a {
+      font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--ink);
+      line-height: 1.3; display: block; padding: 8px 0;
+      border-bottom: 1px solid var(--rule); transition: opacity 0.2s; text-decoration: none;
+    }
+    .overlay-topics li a:hover { opacity: 0.45; }
+    .overlay-topics li:nth-child(odd) a { padding-right: 24px; }
+    .overlay-topics li:nth-child(even) a { padding-left: 24px; border-left: 1px solid var(--rule); }
+    .overlay-search-form { display: flex; border-bottom: 1px solid var(--ink); margin-bottom: 36px; }
+    .overlay-search-input {
+      font-family: var(--sans); font-size: 15px; background: none;
+      border: none; outline: none; color: var(--ink); flex: 1; padding: 8px 0;
+    }
+    .overlay-search-input::placeholder { color: var(--ink-faint); }
+    .overlay-search-btn {
+      background: none; border: none; cursor: pointer; color: var(--ink-faint);
+      padding: 8px 0 8px 12px; transition: color 0.2s; display: flex; align-items: center;
+    }
+    .overlay-search-btn:hover { color: var(--ink); }
+    .overlay-search-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .overlay-nav-links { list-style: none; }
+    .overlay-nav-links li { border-bottom: 1px solid var(--rule); }
+    .overlay-nav-links a {
+      font-family: var(--serif); font-size: 22px; color: var(--ink);
+      display: block; padding: 8px 0; transition: opacity 0.2s; text-decoration: none;
+    }
+    .overlay-nav-links a:hover { opacity: 0.45; }
+
+    /* ─── PAGE HEADER ────────────────────────────────────── */
+    .archive-header {
+      border-bottom: 1px solid var(--rule);
+      padding: 56px 0 40px;
+    }
+    .archive-header-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 32px;
+    }
+    .archive-eyebrow {
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-faint); margin-bottom: 16px;
+    }
+    .archive-title {
+      font-family: var(--display); font-size: clamp(36px, 5vw, 60px);
+      font-weight: 400; line-height: 1.05; letter-spacing: -0.02em;
+      color: var(--ink); margin: 0 0 20px;
+    }
+    .archive-desc {
+      font-family: var(--sans); font-size: 16px; color: var(--ink-soft);
+      max-width: 560px; line-height: 1.6; margin: 0;
+    }
+
+    /* ─── FILTER BAR ─────────────────────────────────────── */
+    .filter-bar {
+      border-bottom: 1px solid var(--rule);
+      position: sticky; top: 64px; z-index: 100;
+      background: var(--paper);
+    }
+    .filter-bar-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 32px;
+      display: flex; align-items: center; gap: 0;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .filter-bar-inner::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      font-family: var(--sans); font-size: 12px; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      background: none; border: none; cursor: pointer;
+      color: var(--ink-faint); padding: 16px 20px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .filter-btn:hover { color: var(--ink); }
+    .filter-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
+
+    /* Search bar */
+    .search-bar {
+      margin-left: auto; display: flex; align-items: center;
+      gap: 8px; padding: 10px 0;
+    }
+    .search-bar input {
+      font-family: var(--sans); font-size: 13px;
+      background: var(--cream); border: none; outline: none;
+      color: var(--ink); padding: 7px 14px; border-radius: 999px;
+      width: 200px; transition: width 0.3s;
+    }
+    .search-bar input:focus { width: 280px; }
+    .search-bar input::placeholder { color: var(--ink-faint); }
+
+    /* ─── CONTENT GRID ───────────────────────────────────── */
+    .archive-body {
+      max-width: 1200px; margin: 0 auto; padding: 48px 32px 80px;
+    }
+    .results-count {
+      font-family: var(--sans); font-size: 12px; color: var(--ink-faint);
+      margin-bottom: 32px; letter-spacing: 0.04em;
+    }
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px 32px;
+    }
+    .archive-card {
+      display: flex; flex-direction: column; cursor: pointer;
+      text-decoration: none; color: inherit;
+    }
+    .archive-card:hover .card-title { opacity: 0.6; }
+    .card-thumb {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--cream); margin-bottom: 16px;
+      overflow: hidden; position: relative;
+    }
+    .card-thumb-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-thumb-label {
+      font-family: var(--sans); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint);
+    }
+    .card-type-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-bottom: 10px;
+    }
+    .badge {
+      font-family: var(--sans); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 2px;
+    }
+    .badge--article { background: var(--ink); color: var(--paper); }
+    .badge--report  { background: transparent; border: 1px solid var(--ink); color: var(--ink); }
+    .card-topic {
+      font-family: var(--sans); font-size: 11px; color: var(--ink-faint);
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .card-title {
+      font-family: var(--serif); font-size: 20px; font-weight: 600;
+      line-height: 1.3; color: var(--ink); margin: 8px 0 10px;
+      transition: opacity 0.2s;
+    }
+    .card-excerpt {
+      font-family: var(--sans); font-size: 13px; line-height: 1.6;
+      color: var(--ink-soft); flex: 1;
+    }
+    .card-meta {
+      font-family: var(--sans); font-size: 12px; color: var(--ink-faint);
+      margin-top: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .card-meta-sep { opacity: 0.4; }
+
+    /* ─── EMPTY STATE ────────────────────────────────────── */
+    .archive-empty {
+      grid-column: 1 / -1; padding: 64px 0; text-align: center;
+      border: 1.5px dashed var(--rule); border-radius: 4px;
+    }
+    .archive-empty p { font-size: 15px; color: var(--ink-faint); margin: 0 0 6px; }
+    .archive-empty span { font-size: 13px; color: var(--ink-faint); }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    .site-footer { background: var(--paper); border-top: 1px solid var(--rule); padding: 40px 0 36px; }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 32px;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px;
+    }
+    .footer-brand-name {
+      font-family: var(--serif); font-size: 36px; font-weight: 700;
+      letter-spacing: -0.5px; color: var(--ink); text-decoration: none;
+      display: block; margin-bottom: 10px;
+    }
+    .footer-brand-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin: 0 0 16px; max-width: 280px; }
+    .footer-copy { font-size: 12px; color: var(--ink-faint); margin: 0; }
+    .footer-copy a { color: var(--ink-faint); text-decoration: none; }
+    .footer-col-head { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 12px; }
+    .footer-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col-list a { font-size: 13px; color: var(--ink-soft); text-decoration: none; transition: color 0.15s; }
+    .footer-col-list a:hover { color: var(--ink); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) { .archive-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) {
+      .archive-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .overlay-inner { grid-template-columns: 1fr; }
+      .overlay-topics { grid-template-columns: 1fr; }
+      .overlay-topics li:nth-child(even) a { padding-left: 0; border-left: none; }
+      .search-bar input { width: 140px; }
+      .search-bar input:focus { width: 180px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── HEADER / NAV ─────────────────────────────────── -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-inner">
+      <div class="nav-left">
+        <button class="nav-icon-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+          <svg class="icon-burger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <button class="nav-icon-btn" id="searchToggle" aria-label="Search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+        </button>
+      </div>
+      <a href="/" class="site-logo">Voussoir.</a>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" aria-label="Toggle dark mode">
+          <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <a href="/#about" class="nav-cta">Consulting</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="nav-overlay" id="navOverlay" role="dialog" aria-label="Navigation menu">
+    <div class="overlay-inner">
+      <div>
+        <div class="overlay-topics-label">Topics</div>
+        <ul class="overlay-topics">
+          <li><a href="#">AI &amp; Regulation</a></li>
+          <li><a href="#">Digital Governance</a></li>
+          <li><a href="#">Data &amp; Privacy</a></li>
+          <li><a href="#">GovTech</a></li>
+          <li><a href="#">Public Administration</a></li>
+          <li><a href="#">EU Policy</a></li>
+          <li><a href="#">Comparative Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="overlay-search-label">Search</div>
+        <form class="overlay-search-form" onsubmit="return false;">
+          <input class="overlay-search-input" type="search" placeholder="Search articles and reports…"/>
+          <button class="overlay-search-btn" aria-label="Go"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></button>
+        </form>
+        <ul class="overlay-nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/voussoir-archive.html">All Articles &amp; Reports</a></li>
+          <li><a href="/voussoir-article.html">Article (example)</a></li>
+          <li><a href="/voussoir-report.html">Report (example)</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#about">Consulting</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PAGE HEADER ──────────────────────────────────── -->
+  <div class="archive-header">
+    <div class="archive-header-inner">
+      <div class="archive-eyebrow">Voussoir · All publications</div>
+      <h1 class="archive-title">Articles &amp; Reports</h1>
+      <p class="archive-desc">Independent analysis on digital governance, AI regulation, GovTech, and EU public administration by Giovanni Perrini.</p>
+    </div>
+  </div>
+
+  <!-- ─── FILTER + SEARCH BAR ──────────────────────────── -->
+  <div class="filter-bar">
+    <div class="filter-bar-inner">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="article">Articles</button>
+      <button class="filter-btn" data-filter="report">Policy Reports</button>
+      <button class="filter-btn" data-filter="AI & Regulation">AI &amp; Regulation</button>
+      <button class="filter-btn" data-filter="Digital Governance">Digital Governance</button>
+      <button class="filter-btn" data-filter="GovTech">GovTech</button>
+      <button class="filter-btn" data-filter="EU Policy">EU Policy</button>
+      <button class="filter-btn" data-filter="Data & Privacy">Data &amp; Privacy</button>
+      <button class="filter-btn" data-filter="Public Administration">Public Administration</button>
+      <button class="filter-btn" data-filter="Comparative Policy">Comparative Policy</button>
+      <div class="search-bar">
+        <input type="search" id="archiveSearch" placeholder="Search…" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── ARCHIVE BODY ─────────────────────────────────── -->
+  <main class="archive-body">
+    <div class="results-count" id="resultsCount">0 publications</div>
+
+    <div class="archive-grid" id="archiveGrid">
+      <!-- Cards injected by JS from the data array below -->
+    </div>
+  </main>
+
+  <!-- ─── FOOTER ───────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <a href="/" class="footer-brand-name">Voussoir.</a>
+        <p class="footer-brand-desc">Independent policy analysis and strategic consulting by Giovanni Perrini.</p>
+        <p class="footer-copy">© 2026 Giovanni Perrini · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+      </div>
+      <div>
+        <p class="footer-col-head">Topics</p>
+        <ul class="footer-col-list">
+          <li><a href="#">AI &amp; Regulation</a></li>
+          <li><a href="#">Digital Governance</a></li>
+          <li><a href="#">Data &amp; Privacy</a></li>
+          <li><a href="#">GovTech</a></li>
+          <li><a href="#">Public Administration</a></li>
+          <li><a href="#">EU Policy</a></li>
+          <li><a href="#">Comparative Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">About</p>
+        <ul class="footer-col-list">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#about">Consulting</a></li>
+          <li><a href="#">Publications</a></li>
+          <li><a href="mailto:g.perrini@pm.me">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">Follow</p>
+        <ul class="footer-col-list">
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">𝕏 / Twitter</a></li>
+          <li><a href="#">Bluesky</a></li>
+          <li><a href="#">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ─── NAV ────────────────────────────────────────────── */
+    (function () {
+      const html = document.documentElement;
+      const themeBtn = document.getElementById('themeToggle');
+      const menuBtn = document.getElementById('menuToggle');
+      const searchBtn = document.getElementById('searchToggle');
+      const overlay = document.getElementById('navOverlay');
+      const header = document.getElementById('siteHeader');
+      const searchInput = overlay.querySelector('.overlay-search-input');
+      const KEY = 'voussoir-theme';
+      const saved = localStorage.getItem(KEY);
+      if (saved === 'dark' || saved === 'light') html.setAttribute('data-theme', saved);
+      function isDark() {
+        const t = html.getAttribute('data-theme');
+        if (t === 'dark') return true; if (t === 'light') return false;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+      themeBtn.addEventListener('click', function () {
+        const next = isDark() ? 'light' : 'dark';
+        html.setAttribute('data-theme', next); localStorage.setItem(KEY, next);
+      });
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+        if (!localStorage.getItem(KEY)) html.setAttribute('data-theme', '');
+      });
+      let menuOpen = false;
+      function openMenu() {
+        menuOpen = true; overlay.classList.add('is-open');
+        header.classList.add('menu-open');
+        menuBtn.setAttribute('aria-expanded', 'true'); menuBtn.setAttribute('aria-label', 'Close menu');
+      }
+      function closeMenu() {
+        menuOpen = false; overlay.classList.remove('is-open');
+        header.classList.remove('menu-open');
+        menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.setAttribute('aria-label', 'Open menu');
+      }
+      menuBtn.addEventListener('click', function () { menuOpen ? closeMenu() : openMenu(); });
+      searchBtn.addEventListener('click', function () { if (!menuOpen) openMenu(); setTimeout(function () { searchInput.focus(); }, 50); });
+      overlay.querySelectorAll('a').forEach(function (link) { link.addEventListener('click', closeMenu); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menuOpen) closeMenu(); });
+    })();
+
+    /* ─── ARCHIVE DATA + FILTER/SEARCH ───────────────────── */
+    /*
+     * When you publish a real article or report, add an object here:
+     * {
+     *   type:    'article' | 'report',
+     *   topic:   'Digital Governance',          // one of the 7 topics
+     *   title:   'Your title here',
+     *   excerpt: 'Short description…',
+     *   date:    '12 Apr 2026',
+     *   href:    '/voussoir-article.html',       // link to the full piece
+     *   mins:    '8 min read',                  // articles only (optional)
+     *   pages:   '32 pages',                    // reports only (optional)
+     * }
+     */
+    const POSTS = [
+      /* ── example entries (remove when you have real content) ── */
+      {
+        type: 'article', topic: 'Digital Governance',
+        title: 'The housing paradox: why European cities keep failing',
+        excerpt: 'Despite decades of housing policy, major European cities remain unaffordable for the middle class.',
+        date: '14 Mar 2026', href: '/voussoir-article.html', mins: '8 min read'
+      },
+      {
+        type: 'report', topic: 'GovTech',
+        title: 'Italy's Digital Governance Gap: a comparative assessment',
+        excerpt: 'A benchmarking study of Italy's digital public administration against seven EU peer countries.',
+        date: 'Feb 2026', href: '/voussoir-report.html', pages: '48 pages'
+      },
+    ];
+
+    const grid = document.getElementById('archiveGrid');
+    const countEl = document.getElementById('resultsCount');
+    const searchEl = document.getElementById('archiveSearch');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    let activeFilter = 'all';
+    let searchQuery = '';
+
+    function cardHTML(p) {
+      const isReport = p.type === 'report';
+      const badge = isReport
+        ? '<span class="badge badge--report">Policy Report</span>'
+        : '<span class="badge badge--article">Article</span>';
+      const meta = isReport
+        ? (p.pages || '')
+        : (p.mins || '');
+      return `
+        <a class="archive-card" href="${p.href}">
+          <div class="card-thumb">
+            <div class="card-thumb-placeholder">
+              <span class="card-thumb-label">Image</span>
+            </div>
+          </div>
+          <div class="card-type-badge">${badge}<span class="card-topic">${p.topic}</span></div>
+          <h2 class="card-title">${p.title}</h2>
+          <p class="card-excerpt">${p.excerpt}</p>
+          <div class="card-meta">
+            <span>${p.date}</span>
+            ${meta ? '<span class="card-meta-sep">·</span><span>' + meta + '</span>' : ''}
+          </div>
+        </a>`;
+    }
+
+    function render() {
+      const q = searchQuery.toLowerCase();
+      const filtered = POSTS.filter(p => {
+        const matchFilter =
+          activeFilter === 'all' ||
+          activeFilter === p.type ||
+          activeFilter === p.topic;
+        const matchSearch =
+          !q ||
+          p.title.toLowerCase().includes(q) ||
+          p.excerpt.toLowerCase().includes(q) ||
+          p.topic.toLowerCase().includes(q);
+        return matchFilter && matchSearch;
+      });
+
+      countEl.textContent = filtered.length + (filtered.length === 1 ? ' publication' : ' publications');
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="archive-empty">
+            <p>No results found.</p>
+            <span>Try a different filter or search term.</span>
+          </div>`;
+      } else {
+        grid.innerHTML = filtered.map(cardHTML).join('');
+      }
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        activeFilter = this.dataset.filter;
+        render();
+      });
+    });
+
+    searchEl.addEventListener('input', function () {
+      searchQuery = this.value;
+      render();
+    });
+
+    // Initial render
+    render();
+  </script>
+
+</body>
+</html>

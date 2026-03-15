@@ -759,82 +759,153 @@
         gap: 28px;
       }
     }
+
+    /* ─── SITE HEADER & NAV ─────────────────────────────── */
+    .site-header {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--paper); border-bottom: 1px solid var(--rule);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .nav-inner {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; height: 64px; padding: 0 24px;
+    }
+    .nav-left { display: flex; align-items: center; gap: 20px; }
+    .site-logo {
+      font-family: var(--serif); font-size: 26px; font-weight: 700;
+      letter-spacing: -0.5px; color: var(--ink); line-height: 1;
+      grid-column: 2; justify-self: center; white-space: nowrap; text-decoration: none;
+    }
+    .nav-right { display: flex; align-items: center; gap: 16px; justify-content: flex-end; }
+    .nav-icon-btn {
+      background: none; border: none; cursor: pointer; color: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      padding: 4px; transition: opacity 0.2s;
+    }
+    .nav-icon-btn:hover { opacity: 0.5; }
+    .nav-icon-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .icon-close { display: none; } .icon-burger { display: block; }
+    .menu-open .icon-close { display: block; } .menu-open .icon-burger { display: none; }
+    .icon-sun { display: none; } .icon-moon { display: block; }
+    [data-theme="dark"] .icon-sun { display: block; } [data-theme="dark"] .icon-moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme="light"]) .icon-sun { display: block; }
+      html:not([data-theme="light"]) .icon-moon { display: none; }
+    }
+    .nav-cta {
+      font-family: var(--sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink);
+      border: 1px solid var(--ink); padding: 7px 16px; border-radius: 999px;
+      white-space: nowrap; transition: background 0.2s, color 0.2s; text-decoration: none;
+    }
+    .nav-cta:hover { background: var(--ink); color: var(--paper); }
+    .nav-overlay {
+      position: fixed; top: 64px; left: 0; right: 0; background: var(--paper);
+      border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+      z-index: 199; padding: 48px 0 56px;
+      opacity: 0; pointer-events: none; transform: translateY(-8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .nav-overlay.is-open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .overlay-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 32px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    }
+    .overlay-topics-label, .overlay-search-label {
+      font-family: var(--sans); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--ink-faint); margin-bottom: 24px;
+    }
+    .overlay-topics { list-style: none; display: grid; grid-template-columns: 1fr 1fr; }
+    .overlay-topics li a {
+      font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--ink);
+      line-height: 1.3; display: block; padding: 8px 0;
+      border-bottom: 1px solid var(--rule); transition: opacity 0.2s; text-decoration: none;
+    }
+    .overlay-topics li a:hover { opacity: 0.45; }
+    .overlay-topics li:nth-child(odd) a { padding-right: 24px; }
+    .overlay-topics li:nth-child(even) a { padding-left: 24px; border-left: 1px solid var(--rule); }
+    .overlay-search-form { display: flex; border-bottom: 1px solid var(--ink); margin-bottom: 36px; }
+    .overlay-search-input {
+      font-family: var(--sans); font-size: 15px; background: none;
+      border: none; outline: none; color: var(--ink); flex: 1; padding: 8px 0;
+    }
+    .overlay-search-input::placeholder { color: var(--ink-faint); }
+    .overlay-search-btn {
+      background: none; border: none; cursor: pointer; color: var(--ink-faint);
+      padding: 8px 0 8px 12px; transition: color 0.2s; display: flex; align-items: center;
+    }
+    .overlay-search-btn:hover { color: var(--ink); }
+    .overlay-search-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .overlay-nav-links { list-style: none; }
+    .overlay-nav-links li { border-bottom: 1px solid var(--rule); }
+    .overlay-nav-links a {
+      font-family: var(--serif); font-size: 22px; color: var(--ink);
+      display: block; padding: 8px 0; transition: opacity 0.2s; text-decoration: none;
+    }
+    .overlay-nav-links a:hover { opacity: 0.45; }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
-  <header>
-    <div class="header-container">
-      <div class="header-left">
-        <button class="icon-button" id="menu-toggle" aria-label="Toggle menu">
-          <svg viewBox="0 0 24 24">
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-inner">
+      <div class="nav-left">
+        <button class="nav-icon-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+          <svg class="icon-burger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <button class="icon-button" aria-label="Search">
-          <svg viewBox="0 0 24 24">
-            <circle cx="10" cy="10" r="6"></circle>
-            <line x1="14" y1="14" x2="21" y2="21"></line>
-          </svg>
+        <button class="nav-icon-btn" id="searchToggle" aria-label="Search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
         </button>
       </div>
-      <div class="header-centre">
-        <a href="voussoir-homepage.html" class="site-logo">Voussoir.</a>
-      </div>
-      <div class="header-right">
-        <button class="icon-button" id="theme-toggle" aria-label="Toggle dark mode">
-          <svg id="sun-icon" viewBox="0 0 24 24" style="display: none;">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
-          <svg id="moon-icon" viewBox="0 0 24 24">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
+      <a href="/" class="site-logo">Voussoir.</a>
+      <div class="nav-right">
+        <button class="nav-icon-btn" id="themeToggle" aria-label="Toggle dark mode">
+          <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         </button>
-        <a href="#" class="consulting-btn">Consulting</a>
+        <a href="/#about" class="nav-cta">Consulting</a>
       </div>
-    </div>
+    </nav>
   </header>
 
-  <!-- MENU OVERLAY -->
-  <div class="menu-overlay" id="menu-overlay">
-    <div class="menu-section">
-      <h3>Topics</h3>
-      <div class="topics-grid">
-        <a href="#" class="topic-link">AI &amp; Regulation</a>
-        <a href="#" class="topic-link">Digital Governance</a>
-        <a href="#" class="topic-link">Data &amp; Privacy</a>
-        <a href="#" class="topic-link">GovTech</a>
-        <a href="#" class="topic-link">Public Administration</a>
-        <a href="#" class="topic-link">EU Policy</a>
-        <a href="#" class="topic-link">Comparative Policy</a>
+  <div class="nav-overlay" id="navOverlay" role="dialog" aria-label="Navigation menu">
+    <div class="overlay-inner">
+      <div>
+        <div class="overlay-topics-label">Topics</div>
+        <ul class="overlay-topics">
+          <li><a href="#">AI &amp; Regulation</a></li>
+          <li><a href="#">Digital Governance</a></li>
+          <li><a href="#">Data &amp; Privacy</a></li>
+          <li><a href="#">GovTech</a></li>
+          <li><a href="#">Public Administration</a></li>
+          <li><a href="#">EU Policy</a></li>
+          <li><a href="#">Comparative Policy</a></li>
+        </ul>
       </div>
-    </div>
-    <div class="menu-section">
-      <h3>Search</h3>
-      <input type="text" class="search-input" placeholder="Search articles...">
-      <div class="nav-links">
-        <a href="voussoir-homepage.html">Home</a>
-        <a href="voussoir-report.html">Policy Reports</a>
-        <a href="#">About</a>
-        <a href="#">Consulting</a>
+      <div>
+        <div class="overlay-search-label">Search</div>
+        <form class="overlay-search-form" onsubmit="return false;">
+          <input class="overlay-search-input" type="search" placeholder="Search articles and reports…"/>
+          <button class="overlay-search-btn" aria-label="Go"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></button>
+        </form>
+        <ul class="overlay-nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/voussoir-archive.html">All Articles &amp; Reports</a></li>
+          <li><a href="/voussoir-article.html">Article (example)</a></li>
+          <li><a href="/voussoir-report.html">Report (example)</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#about">Consulting</a></li>
+        </ul>
       </div>
     </div>
   </div>
 
   <!-- ARTICLE HEADER -->
   <div class="article-header">
-    <div class="breadcrumb"><a href="voussoir-homepage.html" style="color:inherit;">Articles</a> → Digital Governance</div>
+    <div class="breadcrumb"><a href="/" style="color:inherit;">Articles</a> → Digital Governance</div>
 
     <div class="article-meta-line">
       <span class="category-tag">Housing</span>
@@ -935,7 +1006,7 @@
           <p class="card-excerpt">A federal state with high institutional trust and a centralised one still recovering from administrative fragmentation — what their diverging e-government path tells us about reform.</p>
         </a>
 
-        <a href="voussoir-report.html" class="article-card">
+        <a href="/voussoir-report.html" class="article-card">
           <div class="card-image"></div>
           <div class="card-meta">
             <span class="card-tag">EU Policy</span>
@@ -973,7 +1044,7 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <div>
-        <a href="voussoir-homepage.html" class="footer-brand-name">Voussoir.</a>
+        <a href="/" class="footer-brand-name">Voussoir.</a>
         <p class="footer-brand-desc">Independent policy analysis and strategic consulting by Giovanni Perrini.</p>
         <p class="footer-copy">© 2026 Giovanni Perrini · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
       </div>
@@ -1013,66 +1084,52 @@
 
   <!-- JAVASCRIPT -->
   <script>
-    // Theme management
-    const themeToggle = document.getElementById('theme-toggle');
-    const sunIcon = document.getElementById('sun-icon');
-    const moonIcon = document.getElementById('moon-icon');
-    const menuToggle = document.getElementById('menu-toggle');
-    const menuOverlay = document.getElementById('menu-overlay');
-    const header = document.querySelector('header');
-
-    // Initialize theme
-    const savedTheme = localStorage.getItem('voussoir-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    function updateThemeIcons() {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
-                     (prefersDark && !savedTheme);
-      sunIcon.style.display = isDark ? 'block' : 'none';
-      moonIcon.style.display = isDark ? 'none' : 'block';
-    }
-
-    if (savedTheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else if (savedTheme === 'light') {
-      document.documentElement.removeAttribute('data-theme');
-    }
-    updateThemeIcons();
-
-    // Theme toggle
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'dark') {
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('voussoir-theme', 'light');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('voussoir-theme', 'dark');
+    (function () {
+      const html = document.documentElement;
+      const themeBtn = document.getElementById('themeToggle');
+      const menuBtn = document.getElementById('menuToggle');
+      const searchBtn = document.getElementById('searchToggle');
+      const overlay = document.getElementById('navOverlay');
+      const header = document.getElementById('siteHeader');
+      const searchInput = overlay.querySelector('.overlay-search-input');
+      const KEY = 'voussoir-theme';
+      const saved = localStorage.getItem(KEY);
+      if (saved === 'dark' || saved === 'light') html.setAttribute('data-theme', saved);
+      function isDark() {
+        const t = html.getAttribute('data-theme');
+        if (t === 'dark') return true;
+        if (t === 'light') return false;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
       }
-      updateThemeIcons();
-    });
-
-    // Menu toggle
-    menuToggle.addEventListener('click', () => {
-      menuOverlay.classList.toggle('is-open');
-      header.classList.toggle('menu-open');
-    });
-
-    // Close menu on Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && menuOverlay.classList.contains('is-open')) {
-        menuOverlay.classList.remove('is-open');
+      themeBtn.addEventListener('click', function () {
+        const next = isDark() ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem(KEY, next);
+      });
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+        if (!localStorage.getItem(KEY)) html.setAttribute('data-theme', '');
+      });
+      let menuOpen = false;
+      function openMenu() {
+        menuOpen = true; overlay.classList.add('is-open');
+        header.classList.add('menu-open');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        menuBtn.setAttribute('aria-label', 'Close menu');
+      }
+      function closeMenu() {
+        menuOpen = false; overlay.classList.remove('is-open');
         header.classList.remove('menu-open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Open menu');
       }
-    });
-
-    // Close menu when clicking overlay background (if outside menu content)
-    menuOverlay.addEventListener('click', (e) => {
-      if (e.target === menuOverlay) {
-        menuOverlay.classList.remove('is-open');
-        header.classList.remove('menu-open');
-      }
-    });
+      menuBtn.addEventListener('click', function () { menuOpen ? closeMenu() : openMenu(); });
+      searchBtn.addEventListener('click', function () {
+        if (!menuOpen) openMenu();
+        setTimeout(function () { searchInput.focus(); }, 50);
+      });
+      overlay.querySelectorAll('a').forEach(function (link) { link.addEventListener('click', closeMenu); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menuOpen) closeMenu(); });
+    })();
   </script>
 
 </body>
