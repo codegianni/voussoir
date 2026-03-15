@@ -225,6 +225,8 @@
       line-height: 1.85;
       color: var(--ink-soft);
       margin-bottom: 28px;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
 
     .article-body h2 {
@@ -371,6 +373,14 @@
       .article-deck { font-size: 17px; }
       .reports-grid { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr; padding: 0 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .article-title { font-size: 28px; }
+      .article-deck { font-size: 16px; }
+      .footer-inner { grid-template-columns: 1fr; padding: 0 16px; }
+      .reports-grid { grid-template-columns: 1fr; }
+      .overlay-inner { padding: 0 16px; gap: 32px; }
     }
 
     /* SITE HEADER & NAV */

@@ -818,6 +818,16 @@
       .overlay-topics { grid-template-columns: 1fr 1fr; }
       .footer-inner { grid-template-columns: 1fr; padding: 0 20px; }
       .container { padding: 0 20px; }
+      .section-header { padding: 32px 0 20px; }
+      .report-number { font-size: 48px; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-input { border-right: 1px solid var(--rule); border-bottom: none; border-radius: 2px 2px 0 0; }
+      .newsletter-btn { border-radius: 0 0 2px 2px; }
+      .section-header { padding: 28px 0 16px; }
+      .hero-content { padding: 40px 20px; }
     }
   </style>
 </head>
