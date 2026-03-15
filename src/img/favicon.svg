@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="6" fill="#1C1A16"/>
-  <text x="5" y="26" font-family="Georgia, serif" font-style="italic" font-weight="700" font-size="23" fill="#F5F0E8">v.</text>
+  <text x="3" y="27" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="26" fill="#F5F0E8">V.</text>
 </svg>

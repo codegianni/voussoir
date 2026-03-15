@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="6" fill="#1C1A16"/>
+  <!-- Arco (pietre, tono muto) -->
+  <path d="M7,27 L7,17 A9,9 0 0,0 25,17 L25,27"
+        fill="none" stroke="#5A4E40" stroke-width="4" stroke-linecap="butt"/>
+  <!-- Chiave di volta in evidenza (crema brillante) -->
+  <path d="M13,6 Q16,4 19,6 L18,12 Q16,14 14,12 Z" fill="#F5F0E8"/>
+</svg>
