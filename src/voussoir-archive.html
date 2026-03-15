@@ -87,48 +87,48 @@
     .nav-overlay {
       position: fixed; top: 64px; left: 0; right: 0; background: var(--paper);
       border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
-      z-index: 199; padding: 48px 0 56px;
+      z-index: 199; padding: 52px 0 60px;
       opacity: 0; pointer-events: none; transform: translateY(-8px);
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
     .nav-overlay.is-open { opacity: 1; pointer-events: all; transform: translateY(0); }
     .overlay-inner {
       max-width: 1200px; margin: 0 auto; padding: 0 32px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      display: grid; grid-template-columns: 3fr 2fr; gap: 80px; align-items: start;
     }
     .overlay-topics-label, .overlay-search-label {
       font-family: var(--sans); font-size: 10px; font-weight: 700;
       letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--ink-faint); margin-bottom: 24px;
+      color: var(--ink-faint); margin-bottom: 28px;
     }
     .overlay-topics { list-style: none; display: grid; grid-template-columns: 1fr 1fr; }
     .overlay-topics li a {
-      font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--ink);
-      line-height: 1.3; display: block; padding: 8px 0;
-      border-bottom: 1px solid var(--rule); transition: opacity 0.2s; text-decoration: none;
+      font-family: var(--serif); font-size: 26px; font-weight: 400; color: var(--ink);
+      line-height: 1.25; display: block; padding: 10px 0;
+      transition: opacity 0.2s; text-decoration: none;
     }
-    .overlay-topics li a:hover { opacity: 0.45; }
-    .overlay-topics li:nth-child(odd) a { padding-right: 24px; }
-    .overlay-topics li:nth-child(even) a { padding-left: 24px; border-left: 1px solid var(--rule); }
-    .overlay-search-form { display: flex; border-bottom: 1px solid var(--ink); margin-bottom: 36px; }
+    .overlay-topics li a:hover { opacity: 0.4; }
+    .overlay-topics li:nth-child(odd) a { padding-right: 32px; }
+    .overlay-topics li:nth-child(even) a { padding-left: 32px; }
+    .overlay-topics li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+    .overlay-topics li:last-child:nth-child(odd) a { padding-right: 0; }
+    .overlay-search-form {
+      display: flex; align-items: center;
+      border-bottom: 1px solid var(--ink); padding-bottom: 2px; gap: 8px;
+    }
     .overlay-search-input {
-      font-family: var(--sans); font-size: 15px; background: none;
-      border: none; outline: none; color: var(--ink); flex: 1; padding: 8px 0;
+      font-family: var(--serif); font-size: 20px; background: none;
+      border: none; outline: none; color: var(--ink); flex: 1; padding: 10px 0;
+      font-style: italic;
     }
-    .overlay-search-input::placeholder { color: var(--ink-faint); }
+    .overlay-search-input::placeholder { color: var(--ink-faint); font-style: italic; }
     .overlay-search-btn {
-      background: none; border: none; cursor: pointer; color: var(--ink-faint);
-      padding: 8px 0 8px 12px; transition: color 0.2s; display: flex; align-items: center;
+      background: none; border: none; cursor: pointer;
+      font-family: var(--sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-faint); padding: 10px 0; transition: color 0.2s; white-space: nowrap;
     }
     .overlay-search-btn:hover { color: var(--ink); }
-    .overlay-search-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    .overlay-nav-links { list-style: none; }
-    .overlay-nav-links li { border-bottom: 1px solid var(--rule); }
-    .overlay-nav-links a {
-      font-family: var(--serif); font-size: 22px; color: var(--ink);
-      display: block; padding: 8px 0; transition: opacity 0.2s; text-decoration: none;
-    }
-    .overlay-nav-links a:hover { opacity: 0.45; }
 
     /* ─── PAGE HEADER ────────────────────────────────────── */
     .archive-header {
@@ -153,51 +153,83 @@
       max-width: 560px; line-height: 1.6; margin: 0;
     }
 
-    /* ─── FILTER BAR ─────────────────────────────────────── */
+    /* ─── FILTER BAR (Noema-style) ──────────────────────── */
     .filter-bar {
+      border-top: 1px solid var(--rule);
       border-bottom: 1px solid var(--rule);
       position: sticky; top: 64px; z-index: 100;
       background: var(--paper);
     }
     .filter-bar-inner {
       max-width: 1200px; margin: 0 auto; padding: 0 32px;
-      display: flex; align-items: center; gap: 0;
-      overflow-x: auto; scrollbar-width: none;
+      display: flex; align-items: stretch; overflow-x: auto; scrollbar-width: none;
     }
     .filter-bar-inner::-webkit-scrollbar { display: none; }
-    .filter-btn {
-      font-family: var(--sans); font-size: 12px; font-weight: 500;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      background: none; border: none; cursor: pointer;
-      color: var(--ink-faint); padding: 16px 20px;
-      border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
-      white-space: nowrap;
+    .fbar-section {
+      padding: 18px 28px 20px; display: flex; flex-direction: column; gap: 10px;
+      flex-shrink: 0;
     }
-    .filter-btn:hover { color: var(--ink); }
-    .filter-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
+    .fbar-section:first-child { padding-left: 0; }
+    .fbar-sep { width: 1px; background: var(--rule); margin: 12px 0; flex-shrink: 0; }
+    .fbar-label {
+      font-family: var(--sans); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-faint);
+    }
+    .fbar-search-row { display: flex; align-items: center; gap: 10px; }
+    .fbar-icon {
+      width: 18px; height: 18px; stroke: var(--ink-faint); fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
+    }
+    .fbar-input {
+      font-family: var(--serif); font-size: 17px; font-style: italic;
+      background: none; border: none; outline: none;
+      color: var(--ink); width: 180px;
+    }
+    .fbar-input::placeholder { color: var(--ink-faint); }
+    .fbar-go {
+      font-family: var(--sans); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--ink); color: var(--paper);
+      border: none; padding: 5px 12px; cursor: pointer; transition: opacity 0.2s;
+    }
+    .fbar-go:hover { opacity: 0.75; }
+    .fbar-select-wrap { position: relative; display: flex; align-items: center; }
+    .fbar-select {
+      font-family: var(--serif); font-size: 17px;
+      background: none; border: none; outline: none;
+      color: var(--ink); cursor: pointer;
+      appearance: none; -webkit-appearance: none;
+      padding-right: 22px;
+    }
+    .fbar-chevron {
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      width: 14px; height: 14px; stroke: var(--ink-faint); fill: none;
+      stroke-width: 2; pointer-events: none;
+    }
 
-    /* Search bar */
-    .search-bar {
-      margin-left: auto; display: flex; align-items: center;
-      gap: 8px; padding: 10px 0;
+    /* ─── RESULTS BAR ────────────────────────────────────── */
+    .results-bar { border-bottom: 1px solid var(--rule); }
+    .results-bar-inner {
+      max-width: 1200px; margin: 0 auto; padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .search-bar input {
-      font-family: var(--sans); font-size: 13px;
-      background: var(--cream); border: none; outline: none;
-      color: var(--ink); padding: 7px 14px; border-radius: 999px;
-      width: 200px; transition: width 0.3s;
+    .results-count {
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint);
     }
-    .search-bar input:focus { width: 280px; }
-    .search-bar input::placeholder { color: var(--ink-faint); }
+    .results-active { display: flex; gap: 20px; align-items: center; }
+    .results-tag {
+      font-family: var(--sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-faint); cursor: pointer; background: none;
+      border: none; padding: 0; transition: color 0.2s;
+    }
+    .results-tag.is-active { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+    .results-tag:hover { color: var(--ink); }
 
     /* ─── CONTENT GRID ───────────────────────────────────── */
     .archive-body {
       max-width: 1200px; margin: 0 auto; padding: 48px 32px 80px;
-    }
-    .results-count {
-      font-family: var(--sans); font-size: 12px; color: var(--ink-faint);
-      margin-bottom: 32px; letter-spacing: 0.04em;
     }
     .archive-grid {
       display: grid;
@@ -286,8 +318,8 @@
       .footer-inner { grid-template-columns: 1fr 1fr; }
       .overlay-inner { grid-template-columns: 1fr; gap: 40px; }
       .overlay-topics { grid-template-columns: 1fr 1fr; }
-      .search-bar input { width: 140px; }
-      .search-bar input:focus { width: 180px; }
+      .fbar-input { width: 120px; }
+      .filter-bar-inner { flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -321,29 +353,21 @@
       <div>
         <div class="overlay-topics-label">Topics</div>
         <ul class="overlay-topics">
-          <li><a href="#">AI &amp; Regulation</a></li>
-          <li><a href="#">Digital Governance</a></li>
-          <li><a href="#">Data &amp; Privacy</a></li>
-          <li><a href="#">GovTech</a></li>
-          <li><a href="#">Public Administration</a></li>
-          <li><a href="#">EU Policy</a></li>
-          <li><a href="#">Comparative Policy</a></li>
+          <li><a href="/voussoir-archive/?topic=ai-regulation">AI &amp; Regulation</a></li>
+          <li><a href="/voussoir-archive/?topic=digital-governance">Digital Governance</a></li>
+          <li><a href="/voussoir-archive/?topic=data-privacy">Data &amp; Privacy</a></li>
+          <li><a href="/voussoir-archive/?topic=govtech">GovTech</a></li>
+          <li><a href="/voussoir-archive/?topic=public-administration">Public Administration</a></li>
+          <li><a href="/voussoir-archive/?topic=eu-policy">EU Policy</a></li>
+          <li><a href="/voussoir-archive/?topic=comparative-policy">Comparative Policy</a></li>
         </ul>
       </div>
       <div>
         <div class="overlay-search-label">Search</div>
-        <form class="overlay-search-form" onsubmit="return false;">
-          <input class="overlay-search-input" type="search" placeholder="Search articles and reports…"/>
-          <button class="overlay-search-btn" aria-label="Go"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></button>
+        <form class="overlay-search-form" id="overlaySearchForm">
+          <input class="overlay-search-input" type="search" id="overlaySearchInput" placeholder="Search articles and reports…" autocomplete="off"/>
+          <button class="overlay-search-btn" type="submit">Go</button>
         </form>
-        <ul class="overlay-nav-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/voussoir-archive/">All Articles &amp; Reports</a></li>
-          <li><a href="/voussoir-article/">Article (example)</a></li>
-          <li><a href="/voussoir-report/">Report (example)</a></li>
-          <li><a href="/#about">About</a></li>
-          <li><a href="/#about">Consulting</a></li>
-        </ul>
       </div>
     </div>
   </div>
@@ -357,29 +381,62 @@
     </div>
   </div>
 
-  <!-- ─── FILTER + SEARCH BAR ──────────────────────────── -->
+  <!-- ─── FILTER BAR (Noema-style) ──────────────────────── -->
   <div class="filter-bar">
     <div class="filter-bar-inner">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="article">Articles</button>
-      <button class="filter-btn" data-filter="report">Policy Reports</button>
-      <button class="filter-btn" data-filter="AI & Regulation">AI &amp; Regulation</button>
-      <button class="filter-btn" data-filter="Digital Governance">Digital Governance</button>
-      <button class="filter-btn" data-filter="GovTech">GovTech</button>
-      <button class="filter-btn" data-filter="EU Policy">EU Policy</button>
-      <button class="filter-btn" data-filter="Data & Privacy">Data &amp; Privacy</button>
-      <button class="filter-btn" data-filter="Public Administration">Public Administration</button>
-      <button class="filter-btn" data-filter="Comparative Policy">Comparative Policy</button>
-      <div class="search-bar">
-        <input type="search" id="archiveSearch" placeholder="Search…" />
+      <!-- Search -->
+      <div class="fbar-section">
+        <span class="fbar-label">Search</span>
+        <div class="fbar-search-row">
+          <svg class="fbar-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+          <input type="search" id="archiveSearch" placeholder="Keyword" class="fbar-input" autocomplete="off"/>
+          <button class="fbar-go" id="searchGo" type="button">Go</button>
+        </div>
       </div>
+      <div class="fbar-sep"></div>
+      <!-- Type -->
+      <div class="fbar-section">
+        <span class="fbar-label">Sort by Type</span>
+        <div class="fbar-select-wrap">
+          <select id="typeFilter" class="fbar-select">
+            <option value="all">All Types</option>
+            <option value="article">Articles</option>
+            <option value="report">Policy Reports</option>
+          </select>
+          <svg class="fbar-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="fbar-sep"></div>
+      <!-- Topic -->
+      <div class="fbar-section">
+        <span class="fbar-label">Sort by Topic</span>
+        <div class="fbar-select-wrap">
+          <select id="topicFilter" class="fbar-select">
+            <option value="all">All Topics</option>
+            <option value="AI & Regulation">AI &amp; Regulation</option>
+            <option value="Digital Governance">Digital Governance</option>
+            <option value="Data & Privacy">Data &amp; Privacy</option>
+            <option value="GovTech">GovTech</option>
+            <option value="Public Administration">Public Administration</option>
+            <option value="EU Policy">EU Policy</option>
+            <option value="Comparative Policy">Comparative Policy</option>
+          </select>
+          <svg class="fbar-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── RESULTS BAR ──────────────────────────────────── -->
+  <div class="results-bar">
+    <div class="results-bar-inner">
+      <span class="results-count" id="resultsCount">0 publications</span>
+      <div class="results-active" id="resultsActive"></div>
     </div>
   </div>
 
   <!-- ─── ARCHIVE BODY ─────────────────────────────────── -->
   <main class="archive-body">
-    <div class="results-count" id="resultsCount">0 publications</div>
-
     <div class="archive-grid" id="archiveGrid">
       <!-- Cards injected by JS from the data array below -->
     </div>
@@ -436,7 +493,8 @@
       const searchBtn = document.getElementById('searchToggle');
       const overlay = document.getElementById('navOverlay');
       const header = document.getElementById('siteHeader');
-      const searchInput = overlay.querySelector('.overlay-search-input');
+      const overlayInput = document.getElementById('overlaySearchInput');
+      const overlayForm = document.getElementById('overlaySearchForm');
       const KEY = 'voussoir-theme';
       const saved = localStorage.getItem(KEY);
       if (saved === 'dark' || saved === 'light') html.setAttribute('data-theme', saved);
@@ -464,27 +522,42 @@
         menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.setAttribute('aria-label', 'Open menu');
       }
       menuBtn.addEventListener('click', function () { menuOpen ? closeMenu() : openMenu(); });
-      searchBtn.addEventListener('click', function () { if (!menuOpen) openMenu(); setTimeout(function () { searchInput.focus(); }, 50); });
+      searchBtn.addEventListener('click', function () {
+        if (!menuOpen) openMenu();
+        setTimeout(function () { overlayInput.focus(); }, 50);
+      });
+      // Overlay search → redirect to archive (we're already on archive, just set search)
+      overlayForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const q = overlayInput.value.trim();
+        if (q) {
+          closeMenu();
+          archiveSearchEl.value = q;
+          searchQuery = q;
+          render();
+          archiveSearchEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
       overlay.querySelectorAll('a').forEach(function (link) { link.addEventListener('click', closeMenu); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menuOpen) closeMenu(); });
     })();
 
     /* ─── ARCHIVE DATA + FILTER/SEARCH ───────────────────── */
     /*
-     * When you publish a real article or report, add an object here:
+     * To add a new article or report, append an object to the POSTS array:
      * {
      *   type:    'article' | 'report',
-     *   topic:   'Digital Governance',          // one of the 7 topics
-     *   title:   'Your title here',
+     *   topic:   'Digital Governance',   // one of the 7 topics
+     *   title:   'Your title',
      *   excerpt: 'Short description…',
      *   date:    '12 Apr 2026',
-     *   href:    '/voussoir-article/',       // link to the full piece
-     *   mins:    '8 min read',                  // articles only (optional)
-     *   pages:   '32 pages',                    // reports only (optional)
+     *   href:    '/your-article-slug/',
+     *   mins:    '8 min read',           // articles only
+     *   pages:   '32 pages',             // reports only
      * }
      */
     const POSTS = [
-      /* ── example entries (remove when you have real content) ── */
+      /* ── example entries — remove when you have real content ── */
       {
         type: 'article', topic: 'Digital Governance',
         title: 'The housing paradox: why European cities keep failing',
@@ -493,28 +566,55 @@
       },
       {
         type: 'report', topic: 'GovTech',
-        title: 'Italy's Digital Governance Gap: a comparative assessment',
-        excerpt: 'A benchmarking study of Italy's digital public administration against seven EU peer countries.',
+        title: 'Italy’s Digital Governance Gap: a comparative assessment',
+        excerpt: 'A benchmarking study of Italy’s digital public administration against seven EU peer countries.',
         date: 'Feb 2026', href: '/voussoir-report/', pages: '48 pages'
       },
     ];
 
-    const grid = document.getElementById('archiveGrid');
-    const countEl = document.getElementById('resultsCount');
-    const searchEl = document.getElementById('archiveSearch');
-    const filterBtns = document.querySelectorAll('.filter-btn');
+    /* ── Topic slug → display name map (for URL params) ── */
+    const TOPIC_MAP = {
+      'ai-regulation':        'AI & Regulation',
+      'digital-governance':   'Digital Governance',
+      'data-privacy':         'Data & Privacy',
+      'govtech':              'GovTech',
+      'public-administration':'Public Administration',
+      'eu-policy':            'EU Policy',
+      'comparative-policy':   'Comparative Policy',
+    };
 
-    let activeFilter = 'all';
+    const grid         = document.getElementById('archiveGrid');
+    const countEl      = document.getElementById('resultsCount');
+    const activeEl     = document.getElementById('resultsActive');
+    const archiveSearchEl = document.getElementById('archiveSearch');
+    const typeFilterEl = document.getElementById('typeFilter');
+    const topicFilterEl= document.getElementById('topicFilter');
+
+    let activeType  = 'all';
+    let activeTopic = 'all';
     let searchQuery = '';
+
+    /* ── Read URL params on load ── */
+    (function () {
+      const p = new URLSearchParams(window.location.search);
+      const topicSlug = p.get('topic');
+      const q = p.get('q');
+      if (topicSlug && TOPIC_MAP[topicSlug]) {
+        activeTopic = TOPIC_MAP[topicSlug];
+        topicFilterEl.value = activeTopic;
+      }
+      if (q) {
+        searchQuery = q;
+        archiveSearchEl.value = q;
+      }
+    })();
 
     function cardHTML(p) {
       const isReport = p.type === 'report';
       const badge = isReport
         ? '<span class="badge badge--report">Policy Report</span>'
         : '<span class="badge badge--article">Article</span>';
-      const meta = isReport
-        ? (p.pages || '')
-        : (p.mins || '');
+      const meta = isReport ? (p.pages || '') : (p.mins || '');
       return `
         <a class="archive-card" href="${p.href}">
           <div class="card-thumb">
@@ -532,24 +632,38 @@
         </a>`;
     }
 
+    function updateResultsTags() {
+      const typeLabel  = activeType  === 'all' ? 'All Types'   : (activeType === 'article' ? 'Articles' : 'Policy Reports');
+      const topicLabel = activeTopic === 'all' ? 'All Topics'  : activeTopic;
+      activeEl.innerHTML =
+        `<button class="results-tag ${activeType !== 'all' ? 'is-active' : ''}" data-reset="type">${typeLabel}</button>` +
+        `<button class="results-tag ${activeTopic !== 'all' ? 'is-active' : ''}" data-reset="topic">${topicLabel}</button>`;
+      activeEl.querySelectorAll('[data-reset]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (this.dataset.reset === 'type')  { activeType = 'all';  typeFilterEl.value = 'all'; }
+          if (this.dataset.reset === 'topic') { activeTopic = 'all'; topicFilterEl.value = 'all'; }
+          render();
+        });
+      });
+    }
+
     function render() {
       const q = searchQuery.toLowerCase();
-      const filtered = POSTS.filter(p => {
-        const matchFilter =
-          activeFilter === 'all' ||
-          activeFilter === p.type ||
-          activeFilter === p.topic;
-        const matchSearch =
-          !q ||
+      const filtered = POSTS.filter(function (p) {
+        const matchType  = activeType  === 'all' || activeType  === p.type;
+        const matchTopic = activeTopic === 'all' || activeTopic === p.topic;
+        const matchSearch = !q ||
           p.title.toLowerCase().includes(q) ||
           p.excerpt.toLowerCase().includes(q) ||
           p.topic.toLowerCase().includes(q);
-        return matchFilter && matchSearch;
+        return matchType && matchTopic && matchSearch;
       });
 
-      countEl.textContent = filtered.length + (filtered.length === 1 ? ' publication' : ' publications');
+      const n = filtered.length;
+      countEl.textContent = 'Showing ' + n + ' of ' + POSTS.length + (POSTS.length === 1 ? ' publication' : ' publications');
+      updateResultsTags();
 
-      if (filtered.length === 0) {
+      if (n === 0) {
         grid.innerHTML = `
           <div class="archive-empty">
             <p>No results found.</p>
@@ -560,21 +674,20 @@
       }
     }
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', function () {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        activeFilter = this.dataset.filter;
-        render();
-      });
+    /* ── Event listeners ── */
+    typeFilterEl.addEventListener('change', function () {
+      activeType = this.value; render();
+    });
+    topicFilterEl.addEventListener('change', function () {
+      activeTopic = this.value; render();
+    });
+    archiveSearchEl.addEventListener('input', function () {
+      searchQuery = this.value; render();
+    });
+    document.getElementById('searchGo').addEventListener('click', function () {
+      searchQuery = archiveSearchEl.value; render();
     });
 
-    searchEl.addEventListener('input', function () {
-      searchQuery = this.value;
-      render();
-    });
-
-    // Initial render
     render();
   </script>
 
