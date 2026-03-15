@@ -322,11 +322,13 @@
       .overlay-topics li:nth-child(even) a { padding-left: 0; }
       .overlay-search-input { min-width: 0; }
       .fbar-input { width: 120px; }
-      .filter-bar-inner { flex-wrap: wrap; }
     }
     @media (max-width: 480px) {
-      .filter-bar-inner { flex-direction: column; align-items: stretch; gap: 8px; }
-      .fbar-input { width: 100%; }
+      /* Filter bar stays horizontal and scrollable — no column stacking */
+      .filter-bar-inner { padding: 0 16px; flex-wrap: nowrap; }
+      .fbar-section { padding: 14px 16px 16px; }
+      .fbar-section:first-child { padding-left: 0; }
+      .fbar-input { width: 120px; }
       .footer-inner { grid-template-columns: 1fr; padding: 0 16px; }
       .overlay-inner { padding: 0 16px; }
     }
@@ -509,7 +511,7 @@
         <p class="footer-col-head">Follow</p>
         <ul class="footer-col-list">
           <li><a href="#">Newsletter</a></li>
-          <li><a href="#">LinkedIn</a></li>
+          <li><a href="https://www.linkedin.com/in/perrinigiovanni/" target="_blank" rel="noopener">LinkedIn</a></li>
           <li><a href="#">𝕏 / Twitter</a></li>
           <li><a href="#">Bluesky</a></li>
           <li><a href="#">RSS</a></li>
