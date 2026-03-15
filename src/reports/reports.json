@@ -1,0 +1,4 @@
+{
+  "layout": "layouts/report.njk",
+  "type": "report"
+}

@@ -429,7 +429,7 @@
   <!-- ─── RESULTS BAR ──────────────────────────────────── -->
   <div class="results-bar">
     <div class="results-bar-inner">
-      <span class="results-count" id="resultsCount">0 publications</span>
+      <span class="results-count" id="resultsCount">SHOWING {{ collections.allContent | length }} OF {{ collections.allContent | length }} PUBLICATIONS</span>
       <div class="results-active" id="resultsActive"></div>
     </div>
   </div>
@@ -437,7 +437,33 @@
   <!-- ─── ARCHIVE BODY ─────────────────────────────────── -->
   <main class="archive-body">
     <div class="archive-grid" id="archiveGrid">
-      <!-- Cards injected by JS from the data array below -->
+      {% for post in collections.allContent %}
+      <a class="archive-card" href="{{ post.url }}" data-type="{{ post.data.type }}" data-topic="{{ post.data.topicLabel }}" data-title="{{ post.data.title | lower }}" data-date="{{ post.date | isoDate }}">
+        <div class="card-thumb">
+          <div class="card-thumb-placeholder">
+            <span class="card-thumb-label">Image</span>
+          </div>
+        </div>
+        <div class="card-type-badge">
+          {% if post.data.type == 'article' %}
+          <span class="badge badge--article">ARTICLE</span>
+          {% elif post.data.type == 'report' %}
+          <span class="badge badge--report">POLICY REPORT</span>
+          {% endif %}
+          <span class="card-topic">{{ post.data.topicLabel }}</span>
+        </div>
+        <h2 class="card-title">{{ post.data.title }}</h2>
+        <p class="card-excerpt">{{ post.data.deck }}</p>
+        <div class="card-meta">
+          <span>{{ post.date | shortDate }}</span>
+          {% if post.data.type == 'article' %}
+          <span class="card-meta-sep">·</span><span>{{ post.data.readTime }} min read</span>
+          {% elif post.data.type == 'report' %}
+          <span class="card-meta-sep">·</span><span>{{ post.data.pages }} pages</span>
+          {% endif %}
+        </div>
+      </a>
+      {% endfor %}
     </div>
   </main>
 

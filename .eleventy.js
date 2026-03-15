@@ -1,30 +1,77 @@
 module.exports = function(eleventyConfig) {
-  // Copia i file CSS nella cartella di output
+  // Passthrough copies
   eleventyConfig.addPassthroughCopy("src/css");
-
-  // Copia eventuali immagini
   eleventyConfig.addPassthroughCopy("src/img");
+  eleventyConfig.addPassthroughCopy("src/js");
 
-  // Filtro per formattare le date in italiano
+  // Topic slug → label mapping
+  const TOPIC_LABELS = {
+    'ai-regulation': 'AI & Regulation',
+    'digital-governance': 'Digital Governance',
+    'data-privacy': 'Data & Privacy',
+    'govtech': 'GovTech',
+    'public-administration': 'Public Administration',
+    'eu-policy': 'EU Policy',
+    'comparative-policy': 'Comparative Policy',
+  };
+
+  // Filters
+  eleventyConfig.addFilter("topicLabel", function(slug) {
+    return TOPIC_LABELS[slug] || slug;
+  });
+
+  eleventyConfig.addFilter("readableDate", function(dateVal) {
+    const months = ["January","February","March","April","May","June",
+      "July","August","September","October","November","December"];
+    const d = new Date(dateVal);
+    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  });
+
+  eleventyConfig.addFilter("shortDate", function(dateVal) {
+    const months = ["Jan","Feb","Mar","Apr","May","Jun",
+      "Jul","Aug","Sep","Oct","Nov","Dec"];
+    const d = new Date(dateVal);
+    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  });
+
+  eleventyConfig.addFilter("isoDate", function(dateVal) {
+    return new Date(dateVal).toISOString().split('T')[0];
+  });
+
+  // Legacy Italian filter kept for backwards compat
   eleventyConfig.addFilter("dataItaliana", function(date) {
-    const mesi = [
-      "gennaio","febbraio","marzo","aprile","maggio","giugno",
-      "luglio","agosto","settembre","ottobre","novembre","dicembre"
-    ];
+    const mesi = ["gennaio","febbraio","marzo","aprile","maggio","giugno",
+      "luglio","agosto","settembre","ottobre","novembre","dicembre"];
     const d = new Date(date);
     return `${d.getDate()} ${mesi[d.getMonth()]} ${d.getFullYear()}`;
   });
 
-  // Calcolo tempo di lettura (media 200 parole/minuto)
   eleventyConfig.addFilter("tempoLettura", function(content) {
     const parole = content.split(/\s+/).length;
     const minuti = Math.ceil(parole / 200);
     return `${minuti} min`;
   });
 
-  // Ordina gli articoli dal più recente
-  eleventyConfig.addCollection("articoli", function(collectionApi) {
-    return collectionApi.getFilteredByGlob("src/articoli/*.md")
+  // Collections
+  eleventyConfig.addCollection("articles", function(api) {
+    return api.getFilteredByGlob("src/articles/*.md")
+      .sort((a, b) => b.date - a.date);
+  });
+
+  eleventyConfig.addCollection("reports", function(api) {
+    return api.getFilteredByGlob("src/reports/*.md")
+      .sort((a, b) => b.date - a.date);
+  });
+
+  eleventyConfig.addCollection("allContent", function(api) {
+    const articles = api.getFilteredByGlob("src/articles/*.md");
+    const reports = api.getFilteredByGlob("src/reports/*.md");
+    return [...articles, ...reports].sort((a, b) => b.date - a.date);
+  });
+
+  // Legacy Italian collection
+  eleventyConfig.addCollection("articoli", function(api) {
+    return api.getFilteredByGlob("src/articoli/*.md")
       .sort((a, b) => b.date - a.date);
   });
 
