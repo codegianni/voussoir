@@ -4,7 +4,9 @@
   "description": "Voussoir — rivista indipendente di analisi delle politiche pubbliche",
   "scripts": {
     "start": "eleventy --serve",
-    "build": "eleventy"
+    "build": "eleventy",
+    "new-article": "node scripts/new-article.js",
+    "new-report": "node scripts/new-report.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1"
