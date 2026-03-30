@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-GB" data-theme="">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -1153,10 +1153,12 @@
       const KEY              = 'voussoir-theme';
 
       /* ── Theme ── */
-      // Init: usa preferenza manuale salvata; se assente, lascia agire prefers-color-scheme via CSS
+      // Init: usa preferenza manuale salvata; se assente, rimuovi data-theme e lascia agire prefers-color-scheme
       const saved = localStorage.getItem(KEY);
       if (saved === 'dark' || saved === 'light') {
         html.setAttribute('data-theme', saved);
+      } else {
+        html.removeAttribute('data-theme');
       }
 
       function isDark() {

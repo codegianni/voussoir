@@ -2,3 +2,5 @@
 V-dot-*.png
 favicon-option-*.svg
 preview.html
+node_modules/
+_site/
