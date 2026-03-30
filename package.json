@@ -6,9 +6,12 @@
     "start": "eleventy --serve",
     "build": "eleventy",
     "new-article": "node scripts/new-article.js",
-    "new-report": "node scripts/new-report.js"
+    "new-report": "node scripts/new-report.js",
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "npm run build && wrangler dev"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1"
+    "@11ty/eleventy": "^2.0.1",
+    "wrangler": "^4.78.0"
   }
 }
