@@ -46,7 +46,7 @@ Il testo dell'articolo va qui, scritto in Markdown.
 
 4. Scrivi l'articolo in Markdown sotto il blocco `---`
 5. Salva il file
-6. Fai `git push` — Netlify aggiornerà il sito automaticamente in ~30 secondi
+6. Fai `git push` — Cloudflare Pages aggiornera il sito automaticamente dopo il build
 
 ## Sintassi Markdown essenziale
 
@@ -80,14 +80,32 @@ voussoir/
 │   │   └── favicon.svg
 │   └── index.njk               ← home page
 ├── .eleventy.js                ← configurazione Eleventy
-├── netlify.toml                ← configurazione deployment
+├── wrangler.toml               ← configurazione Cloudflare Pages
 └── package.json
 ```
 
-## Deploy su Netlify
+## Deploy su Cloudflare Pages
 
 1. Carica questa cartella su GitHub
-2. Vai su netlify.com → "Add new site" → "Import from Git"
+2. Vai su dash.cloudflare.com → Workers & Pages → "Create application" → "Pages" → "Connect to Git"
 3. Seleziona il tuo repository
-4. Netlify legge automaticamente `netlify.toml` — non devi configurare nulla
-5. Collega il dominio IONOS dalle impostazioni del sito su Netlify
+4. Imposta build command su `npm run build`
+5. Imposta build output directory su `_site`
+6. Salva e fai il primo deploy
+7. Da questo momento ogni `git push` sul branch collegato sincronizza automaticamente il sito
+
+## Deploy manuale via CLI (opzionale)
+
+Se vuoi forzare una sincronizzazione immediata dal terminale:
+
+```bash
+npx wrangler login
+export CLOUDFLARE_PAGES_PROJECT=il-tuo-project-name
+npm run cf:deploy
+```
+
+Per deploy in produzione sul branch `main`:
+
+```bash
+npm run cf:deploy:prod
+```

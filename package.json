@@ -5,6 +5,9 @@
   "scripts": {
     "start": "eleventy --serve",
     "build": "eleventy",
+    "cf:build": "npm run build",
+    "cf:deploy": "npm run build && npx wrangler pages deploy _site --project-name $CLOUDFLARE_PAGES_PROJECT",
+    "cf:deploy:prod": "npm run build && npx wrangler pages deploy _site --project-name $CLOUDFLARE_PAGES_PROJECT --branch main",
     "new-article": "node scripts/new-article.js",
     "new-report": "node scripts/new-report.js"
   },
