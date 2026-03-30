@@ -6,12 +6,8 @@ module.exports = function(eleventyConfig) {
 
   // Topic slug → label mapping
   const TOPIC_LABELS = {
-    'ai-regulation': 'AI & Regulation',
-    'digital-governance': 'Digital Governance',
-    'data-privacy': 'Data & Privacy',
-    'govtech': 'GovTech',
-    'public-administration': 'Public Administration',
     'eu-policy': 'EU Policy',
+    'digital-governance': 'Digital Governance',
     'comparative-policy': 'Comparative Policy',
   };
 
