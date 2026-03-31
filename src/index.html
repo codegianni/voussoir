@@ -311,42 +311,67 @@
     }
     .overlay-search-btn:hover { color: var(--ink); }
 
+    .v-hero-block {
+      position: relative;
+      padding: 120px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .v-wordmark {
+      font-family: var(--serif);
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      margin-bottom: 18px;
+      opacity: 1;
+      transition: opacity 0.4s ease-in-out;
+    }
+    .v-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--rule);
+    }
     .v-emblem {
       position: fixed;
       top: 56px;
       left: 50%;
-      width: 96px;
+      width: 100px;
       z-index: 99;
       pointer-events: none;
       transform: translateX(-50%);
-      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-      will-change: top, left, width, transform;
+      transition: top 0.4s ease-in-out, left 0.4s ease-in-out, width 0.4s ease-in-out, transform 0.4s ease-in-out;
     }
-    .v-emblem__img {
+    .v-img {
       width: 100%;
       height: auto;
       object-fit: contain;
+      display: block;
     }
-    .v-emblem__img--light { display: block; }
-    .v-emblem__img--dark  { display: none; }
+    .v-img--light { display: block; }
+    .v-img--dark  { display: none; }
     @media (prefers-color-scheme: dark) {
-      html:not([data-theme="light"]) .v-emblem__img--light { display: none; }
-      html:not([data-theme="light"]) .v-emblem__img--dark  { display: block; }
+      html:not([data-theme="light"]) .v-img--light { display: none; }
+      html:not([data-theme="light"]) .v-img--dark  { display: block; }
     }
-    [data-theme="dark"] .v-emblem__img--light { display: none; }
-    [data-theme="dark"] .v-emblem__img--dark  { display: block; }
-    [data-theme="light"] .v-emblem__img--light { display: block; }
-    [data-theme="light"] .v-emblem__img--dark  { display: none; }
-
-    .v-emblem.is-condensed {
-      top: 10px;
-      left: 56px;
+    [data-theme="dark"] .v-img--light { display: none; }
+    [data-theme="dark"] .v-img--dark  { display: block; }
+    [data-theme="light"] .v-img--light { display: block; }
+    [data-theme="light"] .v-img--dark  { display: none; }
+    .is-scrolled .v-emblem {
+      top: 18px;
+      left: 110px;
       width: 28px;
       transform: none;
     }
+    .is-scrolled .v-wordmark {
+      opacity: 0;
+    }
 
     @media (max-width: 767px) {
-      .v-emblem { display: none; }
+      .v-hero-block { padding-top: 0; }
+      .v-emblem,
+      .v-wordmark { display: none; }
     }
 
     /* ─── FEATURED ARTICLE ─────────────────────────────── */
@@ -822,11 +847,6 @@
 </head>
 <body>
 
-    <div class="v-emblem" id="vEmblem">
-      <img src="/img/V-light.svg" class="v-emblem__img v-emblem__img--light" alt="">
-      <img src="/img/V-dark.svg" class="v-emblem__img v-emblem__img--dark" alt="">
-    </div>
-
   <!-- ─── HEADER ─────────────────────────────────────── -->
   <header class="site-header" id="siteHeader">
     <nav class="nav-inner">
@@ -880,6 +900,15 @@
 
     </nav>
   </header>
+
+  <div class="v-hero-block" id="vHeroBlock">
+    <div class="v-emblem" id="vEmblem">
+      <img src="/img/V-light.svg" class="v-img v-img--light" alt="V.">
+      <img src="/img/V-dark.svg" class="v-img v-img--dark" alt="V.">
+    </div>
+    <div class="v-wordmark" id="vWordmark">Voussoir.</div>
+    <div class="v-divider"></div>
+  </div>
 
   <!-- ─── MENU OVERLAY ──────────────────────────────── -->
   <div class="nav-overlay" id="navOverlay" role="dialog" aria-label="Navigation menu">
@@ -1135,29 +1164,25 @@
         });
 
       /* ── V. scroll animation ── */
-      const vEmblem = document.getElementById('vEmblem');
       let emblemFrame = null;
 
-      function syncVEmblem() {
+      function syncVState() {
         emblemFrame = null;
-        if (!vEmblem || window.innerWidth < 768) return;
-        if (window.scrollY > 80) {
-          vEmblem.classList.add('is-condensed');
-        } else {
-          vEmblem.classList.remove('is-condensed');
+        if (window.innerWidth < 768) {
+          document.body.classList.remove('is-scrolled');
+          return;
         }
+        document.body.classList.toggle('is-scrolled', window.scrollY > 100);
       }
 
-      function requestVEmblemUpdate() {
+      function requestVStateUpdate() {
         if (emblemFrame !== null) return;
-        emblemFrame = requestAnimationFrame(syncVEmblem);
+        emblemFrame = requestAnimationFrame(syncVState);
       }
 
-      if (vEmblem) {
-        window.addEventListener('scroll', requestVEmblemUpdate, { passive: true });
-        window.addEventListener('resize', requestVEmblemUpdate);
-        requestVEmblemUpdate();
-      }
+      window.addEventListener('scroll', requestVStateUpdate, { passive: true });
+      window.addEventListener('resize', requestVStateUpdate);
+      requestVStateUpdate();
 
       /* ── Menu overlay ── */
       let menuOpen = false;
