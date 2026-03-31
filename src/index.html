@@ -194,10 +194,11 @@
       pointer-events: none;
       background: var(--paper);
       padding: 0 14px;
-      transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+      transition: transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.35s cubic-bezier(0.4,0,0.2,1);
     }
     .site-header.is-scrolled .nav-emblem {
       transform: translateX(-50%) translateY(-120px);
+      opacity: 0;
     }
     .nav-emblem .v-img {
       width: 105px;
@@ -953,8 +954,12 @@
       <div>
         <div class="overlay-topics-label">Topics</div>
         <ul class="overlay-topics">
-          <li><a href="/voussoir-archive/?topic=eu-policy">EU Policy</a></li>
+          <li><a href="/voussoir-archive/?topic=ai-regulation">AI &amp; Regulation</a></li>
           <li><a href="/voussoir-archive/?topic=digital-governance">Digital Governance</a></li>
+          <li><a href="/voussoir-archive/?topic=data-privacy">Data &amp; Privacy</a></li>
+          <li><a href="/voussoir-archive/?topic=govtech">GovTech</a></li>
+          <li><a href="/voussoir-archive/?topic=public-administration">Public Administration</a></li>
+          <li><a href="/voussoir-archive/?topic=eu-policy">EU Policy</a></li>
           <li><a href="/voussoir-archive/?topic=comparative-policy">Comparative Policy</a></li>
         </ul>
       </div>
@@ -962,8 +967,8 @@
       <!-- Right col: Search -->
       <div>
         <div class="overlay-search-label">Search</div>
-        <form class="overlay-search-form" onsubmit="return false;">
-          <input class="overlay-search-input" type="search" placeholder="Search articles and reports…" />
+        <form class="overlay-search-form" action="/voussoir-archive/" method="get">
+          <input class="overlay-search-input" type="search" name="q" placeholder="Search articles and reports…" />
           <button class="overlay-search-btn" aria-label="Go" type="submit">Go</button>
         </form>
       </div>

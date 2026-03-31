@@ -13,6 +13,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ title }} | Voussoir">
   <link rel="icon" type="image/svg+xml" href="/img/favicon.svg?v=3">
+  <script>(function(){var s=localStorage.getItem('voussoir-theme');if(s==='dark'||s==='light')document.documentElement.setAttribute('data-theme',s);})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -431,8 +432,8 @@
     .site-header.is-scrolled .nav-line { width: calc(100% - 48px); }
     .site-logo { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; letter-spacing: 0.02em; color: var(--ink); text-decoration: none; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.45s cubic-bezier(0.4,0,0.2,1); margin-right: 6px; }
     .site-header.is-scrolled .site-logo { opacity: 1; pointer-events: auto; }
-    .nav-emblem { position: absolute; left: 50%; transform: translateX(-50%); top: 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10; pointer-events: none; background: var(--paper); padding: 0 14px; transition: transform 0.55s cubic-bezier(0.4,0,0.2,1); }
-    .site-header.is-scrolled .nav-emblem { transform: translateX(-50%) translateY(-120px); }
+    .nav-emblem { position: absolute; left: 50%; transform: translateX(-50%); top: 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10; pointer-events: none; background: var(--paper); padding: 0 14px; transition: transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .site-header.is-scrolled .nav-emblem { transform: translateX(-50%) translateY(-120px); opacity: 0; }
     .nav-emblem .v-img { width: 105px; height: auto; display: block; }
     .nav-wordmark { font-family: var(--serif); font-size: 1rem; letter-spacing: 0.06em; color: var(--ink); }
     .nav-v-small { overflow: hidden; max-width: 0; opacity: 0; transition: max-width 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.45s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; }
@@ -559,8 +560,8 @@
       </div>
       <div>
         <div class="overlay-search-label">Search</div>
-        <form class="overlay-search-form" onsubmit="return false;">
-          <input class="overlay-search-input" type="search" placeholder="Search articles and reports…"/>
+        <form class="overlay-search-form" action="/voussoir-archive/" method="get">
+          <input class="overlay-search-input" type="search" name="q" placeholder="Search articles and reports…"/>
           <button class="overlay-search-btn" aria-label="Go" type="submit">Go</button>
         </form>
       </div>
@@ -653,7 +654,7 @@
     <div class="footer-inner">
       <div>
         <a href="/" class="footer-brand-name">Voussoir.</a>
-        <p class="footer-brand-desc">Independent policy analysis and strategic consulting by Giovanni Perrini.</p>
+        <p class="footer-brand-desc">Independent policy analysis by Giovanni Perrini.</p>
         <p class="footer-copy">© 2026 Giovanni Perrini · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></p>
       </div>
       <div>
@@ -672,7 +673,6 @@
         <p class="footer-col-head">About</p>
         <ul class="footer-col-list">
           <li><a href="/about/">About</a></li>
-          <li><a href="/consulting/">Consulting</a></li>
           <li><a href="/voussoir-archive/">Archive</a></li>
         </ul>
       </div>
