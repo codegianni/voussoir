@@ -772,6 +772,7 @@
           p.title.toLowerCase().includes(q) ||
           p.excerpt.toLowerCase().includes(q) ||
           p.topic.toLowerCase().includes(q);
+        console.log('Filter result for', p.title, '→ matchType:', matchType, 'matchTopic:', matchTopic, 'matchSearch:', matchSearch, 'activeType:', activeType, 'p.type:', p.type, 'activeTopic:', activeTopic, 'p.topic:', p.topic);
         return matchType && matchTopic && matchSearch;
       });
 
