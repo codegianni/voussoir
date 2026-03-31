@@ -421,21 +421,17 @@
     }
 
     /* SITE HEADER & NAV */
-    .site-header { position: sticky; top: 0; z-index: 200; background: var(--paper); border-bottom: 1px solid var(--rule); transition: background 0.3s; }
-    .nav-row-top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 60px; padding: 0 24px; }
+    .site-header { position: sticky; top: 0; z-index: 200; background: var(--paper); overflow: hidden; height: 148px; transition: height 0.4s cubic-bezier(0.4,0,0.2,1), background 0.3s; }
+    .site-header.is-scrolled { height: 61px; }
+    .nav-row-top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 60px; padding: 0 24px; border-bottom: 1px solid var(--rule); position: relative; z-index: 2; }
     .nav-row-top__left { display: flex; align-items: center; gap: 4px; }
     .nav-row-top__center { display: flex; justify-content: center; }
     .nav-row-top__right { display: flex; justify-content: flex-end; }
-    .site-logo { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; letter-spacing: 0.02em; color: var(--ink); text-decoration: none; }
-    .nav-rule { height: 1px; background: var(--rule, #e0e0e0); }
-    .nav-row-bottom {
-      display: flex; flex-direction: column; align-items: center;
-      padding: 20px 0 16px; gap: 8px; overflow: hidden; max-height: 240px;
-      transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
-      opacity: 1;
-    }
-    .nav-row-bottom.is-hidden { max-height: 0; padding: 0; opacity: 0; }
-    .nav-v-big { width: 120px; height: auto; display: block; }
+    .site-logo { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; letter-spacing: 0.02em; color: var(--ink); text-decoration: none; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .site-header.is-scrolled .site-logo { opacity: 1; pointer-events: auto; }
+    .nav-emblem { position: absolute; left: 50%; transform: translateX(-50%); top: 10px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10; pointer-events: none; transition: opacity 0.3s; }
+    .site-header.is-scrolled .nav-emblem { opacity: 0; }
+    .nav-emblem .v-img { width: 80px; height: auto; display: block; }
     .nav-wordmark { font-family: var(--serif); font-size: 1rem; letter-spacing: 0.06em; color: var(--ink); }
     .nav-v-small { overflow: hidden; max-width: 0; opacity: 0; transition: max-width 0.4s ease, opacity 0.3s ease; display: flex; align-items: center; }
     .nav-v-small.is-visible { max-width: 36px; opacity: 1; }
@@ -538,10 +534,9 @@
         </button>
       </div>
     </div>
-    <div class="nav-rule"></div>
-    <div class="nav-row-bottom" id="navRowBottom">
-      <img src="/img/V-light.svg" class="v-img v-light nav-v-big" alt="">
-      <img src="/img/V-dark.svg" class="v-img v-dark nav-v-big" alt="">
+    <div class="nav-emblem" id="navEmblem">
+      <img src="/img/V-light.svg" class="v-img v-light" alt="">
+      <img src="/img/V-dark.svg" class="v-img v-dark" alt="">
       <span class="nav-wordmark">Voussoir.</span>
     </div>
   </header>
@@ -743,19 +738,19 @@
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menuOpen) closeMenu(); });
 
       (function() {
-        const bottom = document.getElementById('navRowBottom');
+        const hdr    = document.getElementById('siteHeader');
         const vSmall = document.getElementById('navVSmall');
-        if (!bottom || !vSmall) return;
+        if (!hdr) return;
         let ticking = false;
         window.addEventListener('scroll', function() {
           if (!ticking) {
             requestAnimationFrame(function() {
               if (window.scrollY > 60) {
-                bottom.classList.add('is-hidden');
-                vSmall.classList.add('is-visible');
+                hdr.classList.add('is-scrolled');
+                if (vSmall) vSmall.classList.add('is-visible');
               } else {
-                bottom.classList.remove('is-hidden');
-                vSmall.classList.remove('is-visible');
+                hdr.classList.remove('is-scrolled');
+                if (vSmall) vSmall.classList.remove('is-visible');
               }
               ticking = false;
             });

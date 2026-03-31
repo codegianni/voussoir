@@ -113,8 +113,12 @@
       top: 0;
       z-index: 200;
       background: var(--paper);
-      border-bottom: 1px solid var(--rule);
-      transition: background 0.3s;
+      overflow: hidden;
+      height: 148px;
+      transition: height 0.4s cubic-bezier(0.4,0,0.2,1), background 0.3s;
+    }
+    .site-header.is-scrolled {
+      height: 61px;
     }
 
     /* Riga superiore */
@@ -124,6 +128,9 @@
       align-items: center;
       height: 60px;
       padding: 0 24px;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+      z-index: 2;
     }
     .nav-row-top__left {
       display: flex;
@@ -139,7 +146,7 @@
       justify-content: flex-end;
     }
 
-    /* Logo */
+    /* Logo: invisibile espanso, visibile quando scrolled */
     .site-logo {
       font-family: var(--serif);
       font-size: 1.3rem;
@@ -147,42 +154,39 @@
       letter-spacing: 0.02em;
       color: var(--ink);
       text-decoration: none;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .site-header.is-scrolled .site-logo {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    /* Linea */
-    .nav-rule {
-      height: 1px;
-      background: var(--rule, #e0e0e0);
-    }
-
-    /* Riga inferiore */
-    .nav-row-bottom {
+    /* V emblem: cavalca il border-bottom del nav-row-top (come l'A di The Atlantic) */
+    .nav-emblem {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px 0 16px;
       gap: 8px;
-      overflow: hidden;
-      transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1),
-                  padding 0.45s cubic-bezier(0.4,0,0.2,1),
-                  opacity 0.3s ease;
-      max-height: 240px;
-      opacity: 1;
+      z-index: 10;
+      pointer-events: none;
+      transition: opacity 0.3s;
     }
-    .nav-row-bottom.is-hidden {
-      max-height: 0;
-      padding: 0;
+    .site-header.is-scrolled .nav-emblem {
       opacity: 0;
     }
-
-    /* V. grande */
-    .nav-v-big {
-      width: 120px;
+    .nav-emblem .v-img {
+      width: 80px;
       height: auto;
       display: block;
     }
 
-    /* Nome sotto V. grande */
+    /* Nome sotto V. */
     .nav-wordmark {
       font-family: var(--serif);
       font-size: 1rem;
@@ -911,15 +915,10 @@
       </div>
     </div>
 
-    <!-- LINEA DIVISORIA -->
-    <div class="nav-rule"></div>
-
-    <!-- RIGA INFERIORE: V. grande + nome -->
-    <div class="nav-row-bottom" id="navRowBottom">
-      <img src="/img/V-light.svg"
-           class="v-img v-light nav-v-big" alt="">
-      <img src="/img/V-dark.svg"
-           class="v-img v-dark nav-v-big" alt="">
+    <!-- V emblem: cavalca il border-bottom (come l'A di The Atlantic) -->
+    <div class="nav-emblem" id="navEmblem">
+      <img src="/img/V-light.svg" class="v-img v-light" alt="">
+      <img src="/img/V-dark.svg" class="v-img v-dark" alt="">
       <span class="nav-wordmark">Voussoir.</span>
     </div>
 
@@ -1179,19 +1178,19 @@
         });
 
       (function() {
-        const bottom = document.getElementById('navRowBottom');
+        const hdr   = document.getElementById('siteHeader');
         const vSmall = document.getElementById('navVSmall');
-        if (!bottom || !vSmall) return;
+        if (!hdr) return;
         let ticking = false;
         window.addEventListener('scroll', function() {
           if (!ticking) {
             requestAnimationFrame(function() {
               if (window.scrollY > 60) {
-                bottom.classList.add('is-hidden');
-                vSmall.classList.add('is-visible');
+                hdr.classList.add('is-scrolled');
+                if (vSmall) vSmall.classList.add('is-visible');
               } else {
-                bottom.classList.remove('is-hidden');
-                vSmall.classList.remove('is-visible');
+                hdr.classList.remove('is-scrolled');
+                if (vSmall) vSmall.classList.remove('is-visible');
               }
               ticking = false;
             });
