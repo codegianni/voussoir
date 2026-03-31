@@ -311,101 +311,63 @@
 
     /* ─── HERO ─────────────────────────────────────────── */
     .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: calc(100vh - 64px);   /* full viewport below nav */
-    }
-    .hero-image { position: relative; overflow: hidden; }
-    .hero-image-placeholder {
       width: 100%;
-      height: 100%;
-      min-height: calc(100vh - 64px);
-      /* Monochrome gradient — images will replace this */
-      background: linear-gradient(160deg, #2a2a2a 0%, #111111 60%, #1e1e1e 100%);
+      padding: 80px 24px 60px;
       display: flex;
-      align-items: flex-end;
-      padding: 32px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-bottom: 1px solid var(--rule);
     }
-    .hero-image-label {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
-    }
-    .hero-content {
+
+    .hero-inner {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 64px 56px;
-      background: var(--paper);
-      transition: background 0.3s;
-    }
-    .hero-eyebrow {
-      display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
+      gap: 16px;
+      max-width: 680px;
     }
-    .hero-date { font-size: 12px; color: var(--ink-faint); letter-spacing: 0.04em; }
+
+    .hero-arch {
+      width: 80px;
+      height: auto;
+      margin-bottom: 8px;
+    }
+
+    .hero-arch--light { display: block; }
+    .hero-arch--dark  { display: none; }
+
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme="light"]) .hero-arch--light { display: none; }
+      html:not([data-theme="light"]) .hero-arch--dark  { display: block; }
+    }
+    [data-theme="dark"] .hero-arch--light { display: none; }
+    [data-theme="dark"] .hero-arch--dark  { display: block; }
+    [data-theme="light"] .hero-arch--light { display: block; }
+    [data-theme="light"] .hero-arch--dark  { display: none; }
 
     .hero-title {
       font-family: var(--display);
-      font-size: clamp(30px, 3.2vw, 44px);
-      line-height: 1.12;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
       color: var(--ink);
-      margin-bottom: 20px;
-    }
-    .hero-title em {
-      font-style: italic;
-      /* italic alone provides the emphasis — no colour needed */
+      margin: 0;
     }
 
-    .hero-excerpt {
-      font-size: 17px;
-      line-height: 1.7;
+    .hero-subtitle {
+      font-size: 1.1rem;
+      line-height: 1.6;
       color: var(--ink-soft);
-      margin-bottom: 32px;
-      max-width: 440px;
+      margin: 0;
     }
-    .hero-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-    .author-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--ink);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--paper);
-      font-size: 12px;
-      font-weight: 600;
-      flex-shrink: 0;
-      letter-spacing: 0.04em;
-    }
-    .author-meta { font-size: 13px; }
-    .author-name { font-weight: 600; color: var(--ink); }
-    .author-role { color: var(--ink-faint); }
 
-    .read-more {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink);
-      border-bottom: 1px solid var(--ink);
-      padding-bottom: 3px;
-      transition: gap 0.2s, opacity 0.2s;
+    .hero-byline {
+      font-size: 0.9rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.05em;
     }
-    .read-more:hover { gap: 13px; opacity: 0.65; }
-    .read-more::after { content: '→'; font-size: 15px; }
 
     /* ─── TOPICS TICKER ─────────────────────────────────── */
     .topics-bar {
@@ -813,9 +775,6 @@
       .footer-inner { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-image { display: none; }
-      .hero-content { padding: 48px 24px; }
       .articles-grid { grid-template-columns: 1fr; }
       .article-card--wide { grid-template-columns: 1fr; }
       .about-inner { grid-template-columns: 1fr; }
@@ -835,7 +794,6 @@
       .newsletter-input { border-right: 1px solid var(--rule); border-bottom: none; border-radius: 2px 2px 0 0; }
       .newsletter-btn { border-radius: 0 0 2px 2px; }
       .section-header { padding: 28px 0 16px; }
-      .hero-content { padding: 40px 20px; }
     }
 
     /* ─── MOBILE THEME TOGGLE ───────────────────────────── */
@@ -991,30 +949,13 @@
   <!-- ─── HERO ──────────────────────────────────────── -->
   {% set featuredArticle = collections.articles[0] %}
   <section class="hero">
-    <div class="hero-image">
-      {% if featuredArticle and featuredArticle.data.image %}
-      <img src="{{ featuredArticle.data.image }}" alt="{{ featuredArticle.data.title }}">
-      {% else %}
-      <div class="hero-image-placeholder">
-        <span class="hero-image-label">Featured · Article image</span>
-      </div>
-      {% endif %}
-    </div>
-    <div class="hero-content">
-      <h1 class="hero-title">
-        Structures that govern.
-      </h1>
-      <p class="hero-excerpt">
-        Rigorous policy analysis on European governance, institutional design, and the politics of regulation.
-      </p>
-      <div class="hero-author">
-        <div class="author-avatar">GP</div>
-        <div class="author-meta">
-          <div class="author-name">Giovanni Perrini</div>
-          <div class="author-role">Policy Analyst</div>
-        </div>
-      </div>
-      <a href="mailto:g.perrini@pm.me" class="read-more">Get in touch</a>
+    <div class="hero-inner">
+      <img src="/img/hero-light.svg" alt="Voussoir arch" class="hero-arch hero-arch--light" />
+      <img src="/img/hero-light.svg" alt="Voussoir arch" class="hero-arch hero-arch--dark" />
+      <h1 class="hero-title">Structures that govern.</h1>
+      <p class="hero-subtitle">Rigorous policy analysis on European governance,<br>
+      institutional design, and the politics of regulation.</p>
+      <span class="hero-byline">— Giovanni Perrini</span>
     </div>
   </section>
 
