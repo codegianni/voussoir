@@ -6,9 +6,21 @@ module.exports = function(eleventyConfig) {
 
   // Topic slug → label mapping
   const TOPIC_LABELS = {
-    'eu-policy': 'EU Policy',
-    'digital-governance': 'Digital Governance',
+    'ai-regulation': 'AI & Regulation',
     'comparative-policy': 'Comparative Policy',
+    'data-privacy': 'Data & Privacy',
+    'democracy-and-institutions': 'Democracy & Institutions',
+    'digital-governance': 'Digital Governance',
+    'energy-and-climate': 'Energy & Climate',
+    'eu-policy': 'EU Policy',
+    'govtech': 'GovTech',
+    'migration': 'Migration',
+    'public-administration': 'Public Administration',
+    'public-health': 'Public Health',
+    'security-and-defence': 'Security & Defence',
+    'social-policy': 'Social Policy',
+    'trade-and-sanctions': 'Trade & Sanctions',
+    'urban-policy': 'Urban Policy',
   };
 
   // Filters

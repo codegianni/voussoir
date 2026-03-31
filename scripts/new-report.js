@@ -6,13 +6,21 @@ const path = require('path');
 const { exec } = require('child_process');
 
 const TOPICS = [
-  { slug: 'ai-regulation',         label: 'AI & Regulation' },
-  { slug: 'digital-governance',    label: 'Digital Governance' },
-  { slug: 'data-privacy',          label: 'Data & Privacy' },
-  { slug: 'govtech',               label: 'GovTech' },
-  { slug: 'public-administration', label: 'Public Administration' },
-  { slug: 'eu-policy',             label: 'EU Policy' },
-  { slug: 'comparative-policy',    label: 'Comparative Policy' },
+  { slug: 'ai-regulation',               label: 'AI & Regulation' },
+  { slug: 'comparative-policy',          label: 'Comparative Policy' },
+  { slug: 'data-privacy',                label: 'Data & Privacy' },
+  { slug: 'democracy-and-institutions',  label: 'Democracy & Institutions' },
+  { slug: 'digital-governance',          label: 'Digital Governance' },
+  { slug: 'energy-and-climate',          label: 'Energy & Climate' },
+  { slug: 'eu-policy',                   label: 'EU Policy' },
+  { slug: 'govtech',                     label: 'GovTech' },
+  { slug: 'migration',                   label: 'Migration' },
+  { slug: 'public-administration',       label: 'Public Administration' },
+  { slug: 'public-health',               label: 'Public Health' },
+  { slug: 'security-and-defence',        label: 'Security & Defence' },
+  { slug: 'social-policy',               label: 'Social Policy' },
+  { slug: 'trade-and-sanctions',         label: 'Trade & Sanctions' },
+  { slug: 'urban-policy',                label: 'Urban Policy' },
 ];
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
