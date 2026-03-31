@@ -132,6 +132,28 @@
       gap: 20px;
     }
 
+    .nav-v-slot {
+      grid-column: 1;
+      justify-self: end;
+      width: 28px;
+      height: 28px;
+      margin-right: 14px;
+      pointer-events: none;
+      position: relative;
+      z-index: 3;
+    }
+    .nav-v-mark { width: 100%; height: auto; display: block; }
+    .nav-v-mark--light { display: block; }
+    .nav-v-mark--dark  { display: none; }
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme="light"]) .nav-v-mark--light { display: none; }
+      html:not([data-theme="light"]) .nav-v-mark--dark  { display: block; }
+    }
+    [data-theme="dark"] .nav-v-mark--light { display: none; }
+    [data-theme="dark"] .nav-v-mark--dark  { display: block; }
+    [data-theme="light"] .nav-v-mark--light { display: block; }
+    [data-theme="light"] .nav-v-mark--dark  { display: none; }
+
     /* Logo — Playfair Display 700, centred */
     .site-logo {
       font-family: var(--serif);
@@ -162,11 +184,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 4px;
+      width: 40px;
+      height: 40px;
+      padding: 0;
       transition: opacity 0.2s;
     }
     .nav-icon-btn:hover { opacity: 0.5; }
-    .nav-icon-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-icon-btn svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
     /* Hamburger / close icon swap */
     .icon-close { display: none; }
@@ -189,7 +213,7 @@
       font-family: var(--sans);
       font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--ink);
       border: 1px solid var(--ink);
@@ -325,7 +349,7 @@
       gap: 12px;
     }
     .home-signature-mark {
-      width: 48px;
+      width: 120px;
       height: auto;
     }
     .home-signature-mark--light { display: block; }
@@ -343,6 +367,44 @@
       max-width: 280px;
       height: 1px;
       background: var(--rule);
+    }
+
+    .v-morph {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 120px;
+      height: 120px;
+      z-index: 220;
+      pointer-events: none;
+      transform-origin: 50% 50%;
+      opacity: 1;
+      will-change: transform, opacity;
+    }
+    .v-morph img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+    .v-morph .v-morph--light { display: block; }
+    .v-morph .v-morph--dark  { display: none; }
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme="light"]) .v-morph .v-morph--light { display: none; }
+      html:not([data-theme="light"]) .v-morph .v-morph--dark  { display: block; }
+    }
+    [data-theme="dark"] .v-morph .v-morph--light { display: none; }
+    [data-theme="dark"] .v-morph .v-morph--dark  { display: block; }
+    [data-theme="light"] .v-morph .v-morph--light { display: block; }
+    [data-theme="light"] .v-morph .v-morph--dark  { display: none; }
+
+    .v-morph-ready .home-signature-mark,
+    .v-morph-ready .nav-v-mark {
+      opacity: 0;
+    }
+
+    @media (max-width: 767px) {
+      .nav-v-slot { display: none; }
+      .v-morph { display: none; }
     }
 
     /* ─── FEATURED ARTICLE ─────────────────────────────── */
@@ -801,7 +863,7 @@
       font-family: var(--sans);
       font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.08em;
       transition: opacity 0.2s;
       text-align: left;
     }
@@ -828,24 +890,29 @@
       <div class="nav-left">
         <button class="nav-icon-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false">
           <!-- Burger -->
-          <svg class="icon-burger" viewBox="0 0 24 24">
-            <line x1="3" y1="6"  x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
+          <svg class="icon-burger" viewBox="0 0 28 28">
+            <line x1="4" y1="7"  x2="24" y2="7"/>
+            <line x1="4" y1="14" x2="24" y2="14"/>
+            <line x1="4" y1="21" x2="24" y2="21"/>
           </svg>
           <!-- Close -->
-          <svg class="icon-close" viewBox="0 0 24 24">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6"  y1="6" x2="18" y2="18"/>
+          <svg class="icon-close" viewBox="0 0 28 28">
+            <line x1="21" y1="7" x2="7" y2="21"/>
+            <line x1="7"  y1="7" x2="21" y2="21"/>
           </svg>
         </button>
 
         <button class="nav-icon-btn" id="searchToggle" aria-label="Search" title="Search">
-          <svg viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="7"/>
-            <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+          <svg viewBox="0 0 28 28">
+            <circle cx="12" cy="12" r="8"/>
+            <line x1="18" y1="18" x2="24" y2="24"/>
           </svg>
         </button>
+      </div>
+
+      <div class="nav-v-slot" id="navVSlot" aria-hidden="true">
+        <img src="/img/V-light.svg" alt="" class="nav-v-mark nav-v-mark--light" />
+        <img src="/img/V-dark.svg" alt="" class="nav-v-mark nav-v-mark--dark" />
       </div>
 
       <!-- Centre: logo -->
@@ -930,6 +997,11 @@
       <div class="home-signature-rule"></div>
     </div>
   </section>
+
+  <div class="v-morph" id="vMorph" aria-hidden="true">
+    <img src="/img/V-light.svg" alt="" class="v-morph--light" />
+    <img src="/img/V-dark.svg" alt="" class="v-morph--dark" />
+  </div>
 
   {% if featuredArticle %}
   <section class="featured-section">
@@ -1134,6 +1206,67 @@
         .addEventListener('change', function () {
           if (!localStorage.getItem(KEY)) html.removeAttribute('data-theme');
         });
+
+      /* ── V. morph: home signature to navbar ── */
+      const vMorph = document.getElementById('vMorph');
+      const homeMark = document.querySelector('.home-signature-mark--light');
+      const navSlot = document.getElementById('navVSlot');
+
+      if (vMorph && homeMark && navSlot && window.matchMedia('(min-width: 768px)').matches) {
+        let progress = 0;
+        let targetProgress = 0;
+        let rafId = null;
+        const morphDistance = 220;
+        const startSize = 120;
+        const endSize = 28;
+
+        function getCenterRect(el) {
+          const r = el.getBoundingClientRect();
+          return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+        }
+
+        function clamp01(v) {
+          return Math.max(0, Math.min(1, v));
+        }
+
+        function renderMorph() {
+          const start = getCenterRect(homeMark);
+          const end = getCenterRect(navSlot);
+          const x = start.x + (end.x - start.x) * progress;
+          const y = start.y + (end.y - start.y) * progress;
+          const scale = 1 + ((endSize / startSize) - 1) * progress;
+          const tx = x - (startSize / 2);
+          const ty = y - (startSize / 2);
+          vMorph.style.transform = 'translate3d(' + tx + 'px, ' + ty + 'px, 0) scale(' + scale + ')';
+          vMorph.style.opacity = String(1 - 0.08 * progress);
+        }
+
+        function tick() {
+          progress += (targetProgress - progress) * 0.18;
+          if (Math.abs(targetProgress - progress) < 0.001) {
+            progress = targetProgress;
+          }
+          renderMorph();
+          if (progress !== targetProgress) {
+            rafId = requestAnimationFrame(tick);
+          } else {
+            rafId = null;
+          }
+        }
+
+        function updateTarget() {
+          targetProgress = clamp01(window.scrollY / morphDistance);
+          if (!rafId) {
+            rafId = requestAnimationFrame(tick);
+          }
+        }
+
+        document.body.classList.add('v-morph-ready');
+        renderMorph();
+        window.addEventListener('scroll', updateTarget, { passive: true });
+        window.addEventListener('resize', renderMorph);
+        updateTarget();
+      }
 
       /* ── Menu overlay ── */
       let menuOpen = false;
