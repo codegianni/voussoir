@@ -245,6 +245,12 @@
       background: var(--cream); margin-bottom: 16px;
       overflow: hidden; position: relative;
     }
+      .card-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
     .card-thumb-placeholder {
       width: 100%; height: 100%;
       display: flex; align-items: center; justify-content: center;
@@ -387,6 +393,7 @@
           <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         </button>
+        <a href="/consulting/" class="nav-cta">Consulting</a>
       </div>
     </nav>
   </header>
@@ -396,8 +403,12 @@
       <div>
         <div class="overlay-topics-label">Topics</div>
         <ul class="overlay-topics">
-          <li><a href="/voussoir-archive/?topic=eu-policy">EU Policy</a></li>
+          <li><a href="/voussoir-archive/?topic=ai-regulation">AI &amp; Regulation</a></li>
           <li><a href="/voussoir-archive/?topic=digital-governance">Digital Governance</a></li>
+          <li><a href="/voussoir-archive/?topic=data-privacy">Data &amp; Privacy</a></li>
+          <li><a href="/voussoir-archive/?topic=govtech">GovTech</a></li>
+          <li><a href="/voussoir-archive/?topic=public-administration">Public Administration</a></li>
+          <li><a href="/voussoir-archive/?topic=eu-policy">EU Policy</a></li>
           <li><a href="/voussoir-archive/?topic=comparative-policy">Comparative Policy</a></li>
         </ul>
       </div>
@@ -500,9 +511,13 @@
       {% for post in collections.allContent %}
       <a class="archive-card" href="{{ post.url }}" data-type="{{ post.data.type }}" data-topic="{{ post.data.topicLabel }}" data-title="{{ post.data.title | lower }}" data-date="{{ post.date | isoDate }}">
         <div class="card-thumb">
+            {% if post.data.image %}
+            <img src="{{ post.data.image }}" alt="{{ post.data.title }}">
+            {% else %}
           <div class="card-thumb-placeholder">
             <span class="card-thumb-label">Image</span>
           </div>
+            {% endif %}
         </div>
         <div class="card-type-badge">
           {% if post.data.type == 'article' %}
@@ -532,7 +547,7 @@
     <div class="footer-inner">
       <div>
         <a href="/" class="footer-brand-name">Voussoir.</a>
-        <p class="footer-brand-desc">Independent policy analysis by Giovanni Perrini.</p>
+        <p class="footer-brand-desc">Independent policy analysis and strategic consulting by Giovanni Perrini.</p>
         <p class="footer-copy">© 2026 Giovanni Perrini · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></p>
       </div>
       <div>
@@ -551,6 +566,7 @@
         <p class="footer-col-head">About</p>
         <ul class="footer-col-list">
           <li><a href="/about/">About</a></li>
+          <li><a href="/consulting/">Consulting</a></li>
           <li><a href="/voussoir-archive/">Archive</a></li>
         </ul>
       </div>
