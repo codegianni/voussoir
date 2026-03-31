@@ -132,28 +132,6 @@
       gap: 20px;
     }
 
-    .nav-v-slot {
-      grid-column: 1;
-      justify-self: end;
-      width: 28px;
-      height: 28px;
-      margin-right: 14px;
-      pointer-events: none;
-      position: relative;
-      z-index: 3;
-    }
-    .nav-v-mark { width: 100%; height: auto; display: block; }
-    .nav-v-mark--light { display: block; }
-    .nav-v-mark--dark  { display: none; }
-    @media (prefers-color-scheme: dark) {
-      html:not([data-theme="light"]) .nav-v-mark--light { display: none; }
-      html:not([data-theme="light"]) .nav-v-mark--dark  { display: block; }
-    }
-    [data-theme="dark"] .nav-v-mark--light { display: none; }
-    [data-theme="dark"] .nav-v-mark--dark  { display: block; }
-    [data-theme="light"] .nav-v-mark--light { display: block; }
-    [data-theme="light"] .nav-v-mark--dark  { display: none; }
-
     /* Logo — Playfair Display 700, centred */
     .site-logo {
       font-family: var(--serif);
@@ -184,13 +162,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       padding: 0;
       transition: opacity 0.2s;
     }
     .nav-icon-btn:hover { opacity: 0.5; }
-    .nav-icon-btn svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
     /* Hamburger / close icon swap */
     .icon-close { display: none; }
@@ -333,78 +311,42 @@
     }
     .overlay-search-btn:hover { color: var(--ink); }
 
-    /* ─── HOME SIGNATURE ───────────────────────────────── */
-    .home-signature {
-      padding: 22px 0 18px;
-      display: flex;
-      justify-content: center;
-    }
-    .home-signature-inner {
-      width: 100%;
-      max-width: 1200px;
-      padding: 0 32px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-    .home-signature-mark {
-      width: 120px;
-      height: auto;
-    }
-    .home-signature-mark--light { display: block; }
-    .home-signature-mark--dark  { display: none; }
-    @media (prefers-color-scheme: dark) {
-      html:not([data-theme="light"]) .home-signature-mark--light { display: none; }
-      html:not([data-theme="light"]) .home-signature-mark--dark  { display: block; }
-    }
-    [data-theme="dark"] .home-signature-mark--light { display: none; }
-    [data-theme="dark"] .home-signature-mark--dark  { display: block; }
-    [data-theme="light"] .home-signature-mark--light { display: block; }
-    [data-theme="light"] .home-signature-mark--dark  { display: none; }
-    .home-signature-rule {
-      width: 100%;
-      max-width: 280px;
-      height: 1px;
-      background: var(--rule);
-    }
-
-    .v-morph {
+    .v-emblem {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 120px;
-      height: 120px;
-      z-index: 220;
+      top: 56px;
+      left: 50%;
+      width: 96px;
+      z-index: 99;
       pointer-events: none;
-      transform-origin: 50% 50%;
-      opacity: 1;
-      will-change: transform, opacity;
+      transform: translateX(-50%);
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+      will-change: top, left, width, transform;
     }
-    .v-morph img {
+    .v-emblem__img {
       width: 100%;
       height: auto;
       object-fit: contain;
     }
-    .v-morph .v-morph--light { display: block; }
-    .v-morph .v-morph--dark  { display: none; }
+    .v-emblem__img--light { display: block; }
+    .v-emblem__img--dark  { display: none; }
     @media (prefers-color-scheme: dark) {
-      html:not([data-theme="light"]) .v-morph .v-morph--light { display: none; }
-      html:not([data-theme="light"]) .v-morph .v-morph--dark  { display: block; }
+      html:not([data-theme="light"]) .v-emblem__img--light { display: none; }
+      html:not([data-theme="light"]) .v-emblem__img--dark  { display: block; }
     }
-    [data-theme="dark"] .v-morph .v-morph--light { display: none; }
-    [data-theme="dark"] .v-morph .v-morph--dark  { display: block; }
-    [data-theme="light"] .v-morph .v-morph--light { display: block; }
-    [data-theme="light"] .v-morph .v-morph--dark  { display: none; }
+    [data-theme="dark"] .v-emblem__img--light { display: none; }
+    [data-theme="dark"] .v-emblem__img--dark  { display: block; }
+    [data-theme="light"] .v-emblem__img--light { display: block; }
+    [data-theme="light"] .v-emblem__img--dark  { display: none; }
 
-    .v-morph-ready .home-signature-mark,
-    .v-morph-ready .nav-v-mark {
-      opacity: 0;
+    .v-emblem.is-condensed {
+      top: 10px;
+      left: 56px;
+      width: 28px;
+      transform: none;
     }
 
     @media (max-width: 767px) {
-      .nav-v-slot { display: none; }
-      .v-morph { display: none; }
+      .v-emblem { display: none; }
     }
 
     /* ─── FEATURED ARTICLE ─────────────────────────────── */
@@ -808,7 +750,6 @@
       .footer-inner { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-      .home-signature-inner { padding: 0 20px; }
       .featured-media { min-height: 280px; }
       .featured-title { font-size: clamp(28px, 7vw, 36px); }
       .articles-grid { grid-template-columns: 1fr 1fr; }
@@ -825,7 +766,6 @@
     }
     @media (max-width: 480px) {
       .container { padding: 0 16px; }
-      .home-signature-inner { padding: 0 16px; }
       .newsletter-form { flex-direction: column; }
       .newsletter-input { border-right: 1px solid var(--rule); border-bottom: none; border-radius: 2px 2px 0 0; }
       .newsletter-btn { border-radius: 0 0 2px 2px; }
@@ -882,6 +822,11 @@
 </head>
 <body>
 
+    <div class="v-emblem" id="vEmblem">
+      <img src="/img/V-light.svg" class="v-emblem__img v-emblem__img--light" alt="">
+      <img src="/img/V-dark.svg" class="v-emblem__img v-emblem__img--dark" alt="">
+    </div>
+
   <!-- ─── HEADER ─────────────────────────────────────── -->
   <header class="site-header" id="siteHeader">
     <nav class="nav-inner">
@@ -908,11 +853,6 @@
             <line x1="18" y1="18" x2="24" y2="24"/>
           </svg>
         </button>
-      </div>
-
-      <div class="nav-v-slot" id="navVSlot" aria-hidden="true">
-        <img src="/img/V-light.svg" alt="" class="nav-v-mark nav-v-mark--light" />
-        <img src="/img/V-dark.svg" alt="" class="nav-v-mark nav-v-mark--dark" />
       </div>
 
       <!-- Centre: logo -->
@@ -989,19 +929,6 @@
   </div>
 
   {% set featuredArticle = collections.articles[0] %}
-
-  <section class="home-signature" aria-hidden="true">
-    <div class="home-signature-inner">
-      <img src="/img/V-light.svg" alt="Voussoir monogram" class="home-signature-mark home-signature-mark--light" />
-      <img src="/img/V-dark.svg" alt="Voussoir monogram" class="home-signature-mark home-signature-mark--dark" />
-      <div class="home-signature-rule"></div>
-    </div>
-  </section>
-
-  <div class="v-morph" id="vMorph" aria-hidden="true">
-    <img src="/img/V-light.svg" alt="" class="v-morph--light" />
-    <img src="/img/V-dark.svg" alt="" class="v-morph--dark" />
-  </div>
 
   {% if featuredArticle %}
   <section class="featured-section">
@@ -1207,65 +1134,29 @@
           if (!localStorage.getItem(KEY)) html.removeAttribute('data-theme');
         });
 
-      /* ── V. morph: home signature to navbar ── */
-      const vMorph = document.getElementById('vMorph');
-      const homeMark = document.querySelector('.home-signature-mark--light');
-      const navSlot = document.getElementById('navVSlot');
+      /* ── V. scroll animation ── */
+      const vEmblem = document.getElementById('vEmblem');
+      let emblemFrame = null;
 
-      if (vMorph && homeMark && navSlot && window.matchMedia('(min-width: 768px)').matches) {
-        let progress = 0;
-        let targetProgress = 0;
-        let rafId = null;
-        const morphDistance = 220;
-        const startSize = 120;
-        const endSize = 28;
-
-        function getCenterRect(el) {
-          const r = el.getBoundingClientRect();
-          return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+      function syncVEmblem() {
+        emblemFrame = null;
+        if (!vEmblem || window.innerWidth < 768) return;
+        if (window.scrollY > 80) {
+          vEmblem.classList.add('is-condensed');
+        } else {
+          vEmblem.classList.remove('is-condensed');
         }
+      }
 
-        function clamp01(v) {
-          return Math.max(0, Math.min(1, v));
-        }
+      function requestVEmblemUpdate() {
+        if (emblemFrame !== null) return;
+        emblemFrame = requestAnimationFrame(syncVEmblem);
+      }
 
-        function renderMorph() {
-          const start = getCenterRect(homeMark);
-          const end = getCenterRect(navSlot);
-          const x = start.x + (end.x - start.x) * progress;
-          const y = start.y + (end.y - start.y) * progress;
-          const scale = 1 + ((endSize / startSize) - 1) * progress;
-          const tx = x - (startSize / 2);
-          const ty = y - (startSize / 2);
-          vMorph.style.transform = 'translate3d(' + tx + 'px, ' + ty + 'px, 0) scale(' + scale + ')';
-          vMorph.style.opacity = String(1 - 0.08 * progress);
-        }
-
-        function tick() {
-          progress += (targetProgress - progress) * 0.18;
-          if (Math.abs(targetProgress - progress) < 0.001) {
-            progress = targetProgress;
-          }
-          renderMorph();
-          if (progress !== targetProgress) {
-            rafId = requestAnimationFrame(tick);
-          } else {
-            rafId = null;
-          }
-        }
-
-        function updateTarget() {
-          targetProgress = clamp01(window.scrollY / morphDistance);
-          if (!rafId) {
-            rafId = requestAnimationFrame(tick);
-          }
-        }
-
-        document.body.classList.add('v-morph-ready');
-        renderMorph();
-        window.addEventListener('scroll', updateTarget, { passive: true });
-        window.addEventListener('resize', renderMorph);
-        updateTarget();
+      if (vEmblem) {
+        window.addEventListener('scroll', requestVEmblemUpdate, { passive: true });
+        window.addEventListener('resize', requestVEmblemUpdate);
+        requestVEmblemUpdate();
       }
 
       /* ── Menu overlay ── */
