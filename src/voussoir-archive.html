@@ -630,33 +630,22 @@
     })();
 
     /* ─── ARCHIVE DATA + FILTER/SEARCH ───────────────────── */
-    /*
-     * To add a new article or report, append an object to the POSTS array:
-     * {
-     *   type:    'article' | 'report',
-     *   topic:   'Digital Governance',   // one of the 7 topics
-     *   title:   'Your title',
-     *   excerpt: 'Short description…',
-     *   date:    '12 Apr 2026',
-     *   href:    '/your-article-slug/',
-     *   mins:    '8 min read',           // articles only
-     *   pages:   '32 pages',             // reports only
-     * }
-     */
     const POSTS = [
-      /* ── example entries — remove when you have real content ── */
+      {%- for post in collections.allContent %}
       {
-        type: 'article', topic: 'Digital Governance',
-        title: 'The housing paradox: why European cities keep failing',
-        excerpt: 'Despite decades of housing policy, major European cities remain unaffordable for the middle class.',
-        date: '14 Mar 2026', href: '/voussoir-article/', mins: '8 min read'
+        type: ‘{{ post.data.type }}’,
+        topic: ‘{{ post.data.topicLabel }}’,
+        title: {{ post.data.title | dump | safe }},
+        excerpt: {{ post.data.deck | dump | safe }},
+        date: ‘{{ post.date | shortDate }}’,
+        href: ‘{{ post.url }}’,
+        {%- if post.data.type == ‘article’ %}
+        mins: ‘{{ post.data.readTime }} min read’,
+        {%- elif post.data.type == ‘report’ %}
+        pages: ‘{{ post.data.pages }} pages’,
+        {%- endif %}
       },
-      {
-        type: 'report', topic: 'GovTech',
-        title: 'Italy’s Digital Governance Gap: a comparative assessment',
-        excerpt: 'A benchmarking study of Italy’s digital public administration against seven EU peer countries.',
-        date: 'Feb 2026', href: '/voussoir-report/', pages: '48 pages'
-      },
+      {%- endfor %}
     ];
 
     /* ── Topic slug → display name map (for URL params) ── */
