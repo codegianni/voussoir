@@ -989,24 +989,23 @@
   </div>
 
   <!-- ─── HERO ──────────────────────────────────────── -->
+  {% set featuredArticle = collections.articles[0] %}
   <section class="hero">
     <div class="hero-image">
+      {% if featuredArticle and featuredArticle.data.image %}
+      <img src="{{ featuredArticle.data.image }}" alt="{{ featuredArticle.data.title }}">
+      {% else %}
       <div class="hero-image-placeholder">
         <span class="hero-image-label">Featured · Article image</span>
       </div>
+      {% endif %}
     </div>
     <div class="hero-content">
-      <div class="hero-eyebrow">
-        <span class="tag tag--filled">Launching soon</span>
-        <span class="tag">Digital Governance</span>
-        <span class="tag">EU Policy</span>
-      </div>
       <h1 class="hero-title">
-        Independent analysis<br/>
-        <em>on governance and public sector reform</em>
+        Structures that govern.
       </h1>
       <p class="hero-excerpt">
-        Rigorous policy analysis, independent thinking.
+        Rigorous policy analysis on European governance, institutional design, and the politics of regulation.
       </p>
       <div class="hero-author">
         <div class="author-avatar">GP</div>
