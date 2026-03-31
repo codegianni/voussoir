@@ -107,23 +107,79 @@
       color: var(--paper);
     }
 
-    /* ─── HEADER / NAV — Noema style ──────────────────── */
+    /* ─── HEADER / NAV ──────────────────────────────────── */
     .site-header {
       position: sticky;
       top: 0;
       z-index: 200;
       background: var(--paper);
       border-bottom: 1px solid var(--rule);
-      transition: background 0.3s, border-color 0.3s;
+      transition: background 0.3s, border-color 0.3s, height 0.4s ease-in-out;
+      height: 180px;
+      overflow: hidden;
+    }
+    .site-header.is-compact {
+      height: 64px;
     }
 
     /* Three-column grid: [left icons] [centred logo] [right actions] */
     .nav-inner {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
+      align-items: start;
+      height: 100%;
+      padding: 16px 24px 0;
+      transition: align-items 0.4s, padding 0.4s;
+    }
+    .site-header.is-compact .nav-inner {
       align-items: center;
-      height: 64px;
       padding: 0 24px;
+    }
+
+    /* V. centrata grande — visibile solo in stato espanso */
+    .nav-v {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: opacity 0.3s ease-in-out;
+      pointer-events: none;
+    }
+    .site-header.is-compact .nav-v {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .nav-v__img {
+      width: 120px;
+      height: auto;
+      display: block;
+    }
+
+    /* V. piccola nel nav-left — visibile solo in stato compact */
+    .nav-v-compact {
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      width: 0;
+      overflow: hidden;
+      transition: opacity 0.3s ease-in-out, width 0.4s ease-in-out;
+    }
+    .site-header.is-compact .nav-v-compact {
+      opacity: 1;
+      width: 28px;
+    }
+    .nav-v-compact .nav-v__img {
+      width: 28px;
+      height: auto;
+      display: block;
+    }
+
+    /* Dark mode V. */
+    .nav-v__img--light { display: block; }
+    .nav-v__img--dark  { display: none; }
+    @media (prefers-color-scheme: dark) {
+      .nav-v__img--light { display: none; }
+      .nav-v__img--dark  { display: block; }
     }
 
     .nav-left {
@@ -310,53 +366,6 @@
       white-space: nowrap;
     }
     .overlay-search-btn:hover { color: var(--ink); }
-
-    .v-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 32px 0 0;
-      gap: 8px;
-    }
-    .v-img {
-      width: 96px;
-      height: auto;
-      display: block;
-    }
-    .v-img--light { display: block; }
-    .v-img--dark  { display: none; }
-    @media (prefers-color-scheme: dark) {
-      .v-img--light { display: none; }
-      .v-img--dark  { display: block; }
-    }
-    .v-wordmark {
-      font-family: var(--font-serif, Georgia, serif);
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      margin: 0;
-    }
-    .v-rule {
-      width: 100%;
-      border: none;
-      border-top: 1px solid var(--color-border, #e0e0e0);
-      margin: 8px 0 0;
-    }
-
-    .v-img.is-scrolled {
-      position: fixed;
-      top: 14px;
-      left: 108px;
-      width: 32px;
-      z-index: 200;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .v-img.is-entering {
-      position: fixed;
-      top: 14px;
-      left: 108px;
-      width: 32px;
-      z-index: 200;
-    }
 
     /* ─── FEATURED ARTICLE ─────────────────────────────── */
     .featured-section { padding-bottom: 18px; }
@@ -834,6 +843,10 @@
   <!-- ─── HEADER ─────────────────────────────────────── -->
   <header class="site-header" id="siteHeader">
     <nav class="nav-inner">
+      <div class="nav-v" id="navV">
+        <img src="/img/V-light.svg" class="nav-v__img nav-v__img--light" alt="">
+        <img src="/img/V-dark.svg" class="nav-v__img nav-v__img--dark" alt="">
+      </div>
 
       <!-- Left: hamburger + search -->
       <div class="nav-left">
@@ -857,6 +870,10 @@
             <line x1="18" y1="18" x2="24" y2="24"/>
           </svg>
         </button>
+        <div class="nav-v-compact" id="navVCompact">
+          <img src="/img/V-light.svg" class="nav-v__img nav-v__img--light" alt="">
+          <img src="/img/V-dark.svg" class="nav-v__img nav-v__img--dark" alt="">
+        </div>
       </div>
 
       <!-- Centre: logo -->
@@ -884,13 +901,6 @@
 
     </nav>
   </header>
-
-  <div class="v-block" id="vBlock">
-    <img src="/img/V-light.svg" id="vImg" class="v-img v-img--light" alt="">
-    <img src="/img/V-dark.svg" class="v-img v-img--dark" alt="">
-    <p class="v-wordmark">Voussoir.</p>
-    <hr class="v-rule">
-  </div>
 
   <!-- ─── MENU OVERLAY ──────────────────────────────── -->
   <div class="nav-overlay" id="navOverlay" role="dialog" aria-label="Navigation menu">
@@ -1146,52 +1156,20 @@
         });
 
       (function() {
-        const vBlock = document.getElementById('vBlock');
-        if (!vBlock) return;
-
-        const imgs = vBlock.querySelectorAll('.v-img');
-        const wordmark = vBlock.querySelector('.v-wordmark');
-        const SCROLL_THRESHOLD = 80;
-        let scrolled = false;
-
-        function getActiveImg() {
-          const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          return vBlock.querySelector(dark ? '.v-img--dark' : '.v-img--light');
-        }
-
+        const header = document.getElementById('siteHeader');
+        if (!header) return;
+        let ticking = false;
         window.addEventListener('scroll', function() {
-          const y = window.scrollY;
-          if (y > SCROLL_THRESHOLD && !scrolled) {
-            scrolled = true;
-            const img = getActiveImg();
-            const rect = img.getBoundingClientRect();
-            imgs.forEach(function(item) {
-              item.classList.remove('is-scrolled', 'is-entering');
+          if (!ticking) {
+            requestAnimationFrame(function() {
+              if (window.scrollY > 80) {
+                header.classList.add('is-compact');
+              } else {
+                header.classList.remove('is-compact');
+              }
+              ticking = false;
             });
-            img.style.position = 'fixed';
-            img.style.top = rect.top + 'px';
-            img.style.left = rect.left + 'px';
-            img.style.width = rect.width + 'px';
-            img.style.transition = 'none';
-            img.offsetHeight;
-            img.style.transition = 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)';
-            img.style.top = '14px';
-            img.style.left = '108px';
-            img.style.width = '32px';
-            img.classList.add('is-scrolled');
-            wordmark.style.transition = 'opacity 0.2s';
-            wordmark.style.opacity = '0';
-
-          } else if (y <= SCROLL_THRESHOLD && scrolled) {
-            scrolled = false;
-            const img = getActiveImg();
-            img.style.position = '';
-            img.style.top = '';
-            img.style.left = '';
-            img.style.width = '';
-            img.style.transition = '';
-            img.classList.remove('is-scrolled', 'is-entering');
-            wordmark.style.opacity = '1';
+            ticking = true;
           }
         }, { passive: true });
       })();

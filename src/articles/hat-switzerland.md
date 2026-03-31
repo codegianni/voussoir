@@ -2,8 +2,8 @@
 title: "Switzerland Treats Heroin Addiction With Heroin. The Data Says It Works."
 deck: "For three decades, a quiet Swiss programme has been prescribing diacetylmorphine to severe addicts. The evidence is hard to argue with — which makes it all the more remarkable that almost nobody has followed suit."
 type: article
-topic: public-health
-topicLabel: "Public Health"
+topic: comparative-policy
+topicLabel: "Comparative Policy"
 readTime: 10
 date: 2026-04-01
 image: /img/articles/hat-switzerland/copertina.svg

@@ -639,11 +639,42 @@
     .site-header {
       position: sticky; top: 0; z-index: 200;
       background: var(--paper); border-bottom: 1px solid var(--rule);
-      transition: background 0.3s, border-color 0.3s;
+      transition: background 0.3s, border-color 0.3s, height 0.4s ease-in-out;
+      height: 180px;
+      overflow: hidden;
+    }
+    .site-header.is-compact {
+      height: 64px;
     }
     .nav-inner {
       display: grid; grid-template-columns: 1fr auto 1fr;
-      align-items: center; height: 64px; padding: 0 24px;
+      align-items: start; height: 100%; padding: 16px 24px 0;
+      transition: align-items 0.4s, padding 0.4s;
+    }
+    .site-header.is-compact .nav-inner {
+      align-items: center;
+      padding: 0 24px;
+    }
+    .nav-v {
+      position: absolute; bottom: 16px; left: 50%;
+      transform: translateX(-50%);
+      transition: opacity 0.3s ease-in-out;
+      pointer-events: none;
+    }
+    .site-header.is-compact .nav-v { opacity: 0; pointer-events: none; }
+    .nav-v__img { width: 120px; height: auto; display: block; }
+    .nav-v-compact {
+      display: flex; align-items: center;
+      opacity: 0; width: 0; overflow: hidden;
+      transition: opacity 0.3s ease-in-out, width 0.4s ease-in-out;
+    }
+    .site-header.is-compact .nav-v-compact { opacity: 1; width: 28px; }
+    .nav-v-compact .nav-v__img { width: 28px; height: auto; display: block; }
+    .nav-v__img--light { display: block; }
+    .nav-v__img--dark  { display: none; }
+    @media (prefers-color-scheme: dark) {
+      .nav-v__img--light { display: none; }
+      .nav-v__img--dark  { display: block; }
     }
     .nav-left { display: flex; align-items: center; gap: 20px; }
     .site-logo {
@@ -726,6 +757,11 @@
   <!-- HEADER -->
   <header class="site-header" id="siteHeader">
     <nav class="nav-inner">
+      <div class="nav-v" id="navV">
+        <img src="/img/V-light.svg" class="nav-v__img nav-v__img--light" alt="">
+        <img src="/img/V-dark.svg" class="nav-v__img nav-v__img--dark" alt="">
+      </div>
+
       <div class="nav-left">
         <button class="nav-icon-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false">
           <svg class="icon-burger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -734,6 +770,10 @@
         <button class="nav-icon-btn" id="searchToggle" aria-label="Search">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
         </button>
+        <div class="nav-v-compact" id="navVCompact">
+          <img src="/img/V-light.svg" class="nav-v__img nav-v__img--light" alt="">
+          <img src="/img/V-dark.svg" class="nav-v__img nav-v__img--dark" alt="">
+        </div>
       </div>
       <a href="/" class="site-logo">Voussoir.</a>
       <div class="nav-right">
@@ -977,6 +1017,25 @@
       });
       overlay.querySelectorAll('a').forEach(function (link) { link.addEventListener('click', closeMenu); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menuOpen) closeMenu(); });
+
+      (function() {
+        const hdr = document.getElementById('siteHeader');
+        if (!hdr) return;
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+          if (!ticking) {
+            requestAnimationFrame(function() {
+              if (window.scrollY > 80) {
+                hdr.classList.add('is-compact');
+              } else {
+                hdr.classList.remove('is-compact');
+              }
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      })();
     })();
   </script>
 
