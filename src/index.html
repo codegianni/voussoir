@@ -309,127 +309,115 @@
     }
     .overlay-search-btn:hover { color: var(--ink); }
 
-    /* ─── HERO ─────────────────────────────────────────── */
-    .hero {
-      width: 100%;
-      padding: 80px 24px 60px;
+    /* ─── HOME SIGNATURE ───────────────────────────────── */
+    .home-signature {
+      padding: 22px 0 18px;
       display: flex;
       justify-content: center;
-      align-items: center;
-      text-align: center;
-      border-bottom: 1px solid var(--rule);
     }
-
-    .hero-inner {
+    .home-signature-inner {
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 32px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
-      max-width: 680px;
+      gap: 12px;
     }
-
-    .hero-arch {
-      width: 80px;
+    .home-signature-mark {
+      width: 48px;
       height: auto;
-      margin-bottom: 8px;
     }
-
-    .hero-arch--light { display: block; }
-    .hero-arch--dark  { display: none; }
-
+    .home-signature-mark--light { display: block; }
+    .home-signature-mark--dark  { display: none; }
     @media (prefers-color-scheme: dark) {
-      html:not([data-theme="light"]) .hero-arch--light { display: none; }
-      html:not([data-theme="light"]) .hero-arch--dark  { display: block; }
+      html:not([data-theme="light"]) .home-signature-mark--light { display: none; }
+      html:not([data-theme="light"]) .home-signature-mark--dark  { display: block; }
     }
-    [data-theme="dark"] .hero-arch--light { display: none; }
-    [data-theme="dark"] .hero-arch--dark  { display: block; }
-    [data-theme="light"] .hero-arch--light { display: block; }
-    [data-theme="light"] .hero-arch--dark  { display: none; }
+    [data-theme="dark"] .home-signature-mark--light { display: none; }
+    [data-theme="dark"] .home-signature-mark--dark  { display: block; }
+    [data-theme="light"] .home-signature-mark--light { display: block; }
+    [data-theme="light"] .home-signature-mark--dark  { display: none; }
+    .home-signature-rule {
+      width: 100%;
+      max-width: 280px;
+      height: 1px;
+      background: var(--rule);
+    }
 
-    .hero-title {
-      font-family: var(--display);
-      font-size: clamp(2rem, 5vw, 3.5rem);
+    /* ─── FEATURED ARTICLE ─────────────────────────────── */
+    .featured-section { padding-bottom: 18px; }
+    .featured-article {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 36px;
+      align-items: stretch;
+      min-height: 460px;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 28px;
+    }
+    .featured-media {
+      background: var(--cream);
+      overflow: hidden;
+      min-height: 460px;
+    }
+    .featured-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .featured-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      padding: 6px 0;
+    }
+    .featured-topic {
+      font-size: 11px;
       font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .featured-title {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.08;
       color: var(--ink);
       margin: 0;
     }
-
-    .hero-subtitle {
-      font-size: 1.1rem;
-      line-height: 1.6;
+    .featured-deck {
+      font-size: 16px;
+      line-height: 1.75;
       color: var(--ink-soft);
       margin: 0;
     }
-
-    .hero-byline {
-      font-size: 0.9rem;
+    .featured-meta {
+      font-size: 12px;
       color: var(--ink-faint);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-top: 4px;
     }
-
-    /* ─── TOPICS TICKER ─────────────────────────────────── */
-    .topics-bar {
-      background: var(--surface-dark);
-      overflow: hidden;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      transition: background 0.3s;
-    }
-    /* Fade edges */
-    .topics-bar::before,
-    .topics-bar::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 80px;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .topics-bar { position: relative; }
-    .topics-bar::before { left: 0;  background: linear-gradient(to right, var(--surface-dark), transparent); }
-    .topics-bar::after  { right: 0; background: linear-gradient(to left,  var(--surface-dark), transparent); }
-
-    /* Track scrolls continuously — content duplicated 2× for seamless loop */
-    .topics-track {
+    .featured-link {
       display: inline-flex;
       align-items: center;
-      white-space: nowrap;
-      padding: 12px 0;
-      animation: ticker 28s linear infinite;
-      will-change: transform;
-    }
-    .topics-bar:hover .topics-track { animation-play-state: paused; }
-
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    .topic-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.28);
-      padding: 0 28px 0 40px;
-      flex-shrink: 0;
-    }
-    .topic-item {
-      font-size: 11px;
-      font-weight: 400;
+      gap: 8px;
+      width: fit-content;
+      font-size: 12px;
+      font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      padding: 0 20px;
-      flex-shrink: 0;
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 3px;
+      transition: gap 0.2s, opacity 0.2s;
+      margin-top: 2px;
     }
-    .topic-sep {
-      color: rgba(255,255,255,0.14);
-      font-size: 10px;
-      flex-shrink: 0;
-    }
+    .featured-link::after { content: '→'; font-size: 15px; }
+    .featured-link:hover { gap: 13px; opacity: 0.65; }
 
     /* ─── SECTION HEADER ───────────────────────────────── */
     .section-header {
@@ -506,26 +494,6 @@
     }
     .article-card:hover .card-title { opacity: 0.6; }
     .card-excerpt { font-size: 14px; line-height: 1.65; color: var(--ink-soft); }
-
-    /* Wide card */
-    .article-card--wide {
-      grid-column: span 2;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
-    .article-card--wide .card-image {
-      aspect-ratio: auto;
-      margin-bottom: 0;
-      height: 100%;
-      min-height: 220px;
-    }
-    .article-card--wide .card-body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .article-card--wide .card-title { font-size: 26px; }
 
     /* ─── DIVIDER ──────────────────────────────────────── */
     .section-divider { border: none; border-top: 1px solid var(--rule); margin: 0; }
@@ -769,14 +737,19 @@
 
     /* ─── RESPONSIVE ───────────────────────────────────── */
     @media (max-width: 1024px) {
-      .articles-grid { grid-template-columns: 1fr 1fr; }
-      .article-card--wide { grid-column: span 2; }
+      .featured-article {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+      .featured-media { min-height: 360px; }
       .reports-grid { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-      .articles-grid { grid-template-columns: 1fr; }
-      .article-card--wide { grid-template-columns: 1fr; }
+      .home-signature-inner { padding: 0 20px; }
+      .featured-media { min-height: 280px; }
+      .featured-title { font-size: clamp(28px, 7vw, 36px); }
+      .articles-grid { grid-template-columns: 1fr 1fr; }
       .about-inner { grid-template-columns: 1fr; }
       .overlay-inner { grid-template-columns: 1fr; gap: 32px; }
       .overlay-topics { grid-template-columns: 1fr; }
@@ -790,10 +763,12 @@
     }
     @media (max-width: 480px) {
       .container { padding: 0 16px; }
+      .home-signature-inner { padding: 0 16px; }
       .newsletter-form { flex-direction: column; }
       .newsletter-input { border-right: 1px solid var(--rule); border-bottom: none; border-radius: 2px 2px 0 0; }
       .newsletter-btn { border-radius: 0 0 2px 2px; }
       .section-header { padding: 28px 0 16px; }
+      .articles-grid { grid-template-columns: 1fr; }
     }
 
     /* ─── MOBILE THEME TOGGLE ───────────────────────────── */
@@ -946,32 +921,38 @@
     </div>
   </div>
 
-  <!-- ─── HERO ──────────────────────────────────────── -->
   {% set featuredArticle = collections.articles[0] %}
-  <section class="hero">
-    <div class="hero-inner">
-      <img src="/img/hero-light.svg" alt="Voussoir arch" class="hero-arch hero-arch--light" />
-      <img src="/img/hero-light.svg" alt="Voussoir arch" class="hero-arch hero-arch--dark" />
-      <h1 class="hero-title">Structures that govern.</h1>
-      <p class="hero-subtitle">Rigorous policy analysis on European governance,<br>
-      institutional design, and the politics of regulation.</p>
-      <span class="hero-byline">— Giovanni Perrini</span>
+
+  <section class="home-signature" aria-hidden="true">
+    <div class="home-signature-inner">
+      <img src="/img/V-light.svg" alt="Voussoir monogram" class="home-signature-mark home-signature-mark--light" />
+      <img src="/img/V-dark.svg" alt="Voussoir monogram" class="home-signature-mark home-signature-mark--dark" />
+      <div class="home-signature-rule"></div>
     </div>
   </section>
 
-  <!-- ─── TOPICS TICKER ─────────────────────────────────── -->
-  <div class="topics-bar" aria-hidden="true">
-    <div class="topics-track">
-      <!-- Set A -->
-      <span class="topic-item">EU Policy</span><span class="topic-sep">·</span>
-      <span class="topic-item">Digital Governance</span><span class="topic-sep">·</span>
-      <span class="topic-item">Comparative Policy</span><span class="topic-sep">·</span>
-      <!-- Set B — exact duplicate for seamless loop -->
-      <span class="topic-item">EU Policy</span><span class="topic-sep">·</span>
-      <span class="topic-item">Digital Governance</span><span class="topic-sep">·</span>
-      <span class="topic-item">Comparative Policy</span><span class="topic-sep">·</span>
+  {% if featuredArticle %}
+  <section class="featured-section">
+    <div class="container">
+      <article class="featured-article">
+        <a class="featured-media" href="{{ featuredArticle.url }}">
+          {% if featuredArticle.data.image %}
+          <img src="{{ featuredArticle.data.image }}" alt="{{ featuredArticle.data.title }}">
+          {% else %}
+          <div class="card-image-placeholder card-image-placeholder--1"></div>
+          {% endif %}
+        </a>
+        <div class="featured-content">
+          <span class="featured-topic">{{ featuredArticle.data.topicLabel }}</span>
+          <h1 class="featured-title"><a href="{{ featuredArticle.url }}">{{ featuredArticle.data.title }}</a></h1>
+          <p class="featured-deck">{{ featuredArticle.data.deck }}</p>
+          <div class="featured-meta">Giovanni Perrini · {{ featuredArticle.date | shortDate }}</div>
+          <a href="{{ featuredArticle.url }}" class="featured-link">Read more</a>
+        </div>
+      </article>
     </div>
-  </div>
+  </section>
+  {% endif %}
 
   <!-- ─── ARTICLES ───────────────────────────────────── -->
   <section class="articles-section" id="articles">
@@ -984,8 +965,8 @@
       {% if collections.articles | length %}
       <div class="articles-grid">
         {% for post in collections.articles %}
-        {% if loop.index <= 3 %}
-        <a class="article-card{% if loop.first and (collections.articles | length) > 1 %} article-card--wide{% endif %}" href="{{ post.url }}" style="text-decoration:none; color:inherit;">
+        {% if not loop.first and loop.index <= 4 %}
+        <a class="article-card" href="{{ post.url }}" style="text-decoration:none; color:inherit;">
           <div class="card-image">
             {% if post.data.image %}
             <img src="{{ post.data.image }}" alt="{{ post.data.title }}">
