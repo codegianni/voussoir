@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script>(function(){var s=localStorage.getItem('voussoir-theme');if(s==='dark'||s==='light')document.documentElement.setAttribute('data-theme',s);})();</script>
 
   <style>
     /* ─── RESET ────────────────────────────────────────── */
@@ -115,7 +116,7 @@
       background: var(--paper);
       overflow: hidden;
       height: 162px;
-      transition: height 0.55s cubic-bezier(0.4,0,0.2,1), background 0.3s;
+      transition: height 0.55s cubic-bezier(0.4,0,0.2,1);
     }
     .site-header.is-scrolled {
       height: 61px;
@@ -193,10 +194,10 @@
       pointer-events: none;
       background: var(--paper);
       padding: 0 14px;
-      transition: opacity 0.45s cubic-bezier(0.4,0,0.2,1);
+      transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
     }
     .site-header.is-scrolled .nav-emblem {
-      opacity: 0;
+      transform: translateX(-50%) translateY(-120px);
     }
     .nav-emblem .v-img {
       width: 105px;
@@ -940,7 +941,6 @@
     <div class="nav-emblem" id="navEmblem">
       <img src="/img/V-light.svg" class="v-img v-light" alt="">
       <img src="/img/V-dark.svg" class="v-img v-dark" alt="">
-      <span class="nav-wordmark">Voussoir.</span>
     </div>
 
   </header>
