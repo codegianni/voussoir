@@ -665,8 +665,8 @@
     const POSTS = [
       {%- for post in collections.allContent %}
       {
-        type: ‘{{ post.data.type }}’,
-        topic: ‘{{ post.data.topicLabel }}’,
+        type: {{ post.data.type | dump | safe }},
+        topic: {{ post.data.topicLabel | dump | safe }},
         title: {{ post.data.title | dump | safe }},
         excerpt: {{ post.data.deck | dump | safe }},
         date: ‘{{ post.date | shortDate }}’,
