@@ -311,67 +311,51 @@
     }
     .overlay-search-btn:hover { color: var(--ink); }
 
-    .v-hero-block {
-      position: relative;
-      padding: 120px 0 0;
+    .v-block {
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-    .v-wordmark {
-      font-family: var(--serif);
-      font-size: 18px;
-      letter-spacing: 0.05em;
-      color: var(--ink);
-      margin-bottom: 18px;
-      opacity: 1;
-      transition: opacity 0.4s ease-in-out;
-    }
-    .v-divider {
-      width: 100%;
-      height: 1px;
-      background: var(--rule);
-    }
-    .v-emblem {
-      position: fixed;
-      top: 56px;
-      left: 50%;
-      width: 100px;
-      z-index: 99;
-      pointer-events: none;
-      transform: translateX(-50%);
-      transition: top 0.4s ease-in-out, left 0.4s ease-in-out, width 0.4s ease-in-out, transform 0.4s ease-in-out;
+      padding: 32px 0 0;
+      gap: 8px;
     }
     .v-img {
-      width: 100%;
+      width: 96px;
       height: auto;
-      object-fit: contain;
       display: block;
     }
     .v-img--light { display: block; }
     .v-img--dark  { display: none; }
     @media (prefers-color-scheme: dark) {
-      html:not([data-theme="light"]) .v-img--light { display: none; }
-      html:not([data-theme="light"]) .v-img--dark  { display: block; }
+      .v-img--light { display: none; }
+      .v-img--dark  { display: block; }
     }
-    [data-theme="dark"] .v-img--light { display: none; }
-    [data-theme="dark"] .v-img--dark  { display: block; }
-    [data-theme="light"] .v-img--light { display: block; }
-    [data-theme="light"] .v-img--dark  { display: none; }
-    .is-scrolled .v-emblem {
-      top: 18px;
-      left: 110px;
-      width: 28px;
-      transform: none;
+    .v-wordmark {
+      font-family: var(--font-serif, Georgia, serif);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      margin: 0;
     }
-    .is-scrolled .v-wordmark {
-      opacity: 0;
+    .v-rule {
+      width: 100%;
+      border: none;
+      border-top: 1px solid var(--color-border, #e0e0e0);
+      margin: 8px 0 0;
     }
 
-    @media (max-width: 767px) {
-      .v-hero-block { padding-top: 0; }
-      .v-emblem,
-      .v-wordmark { display: none; }
+    .v-img.is-scrolled {
+      position: fixed;
+      top: 14px;
+      left: 108px;
+      width: 32px;
+      z-index: 200;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .v-img.is-entering {
+      position: fixed;
+      top: 14px;
+      left: 108px;
+      width: 32px;
+      z-index: 200;
     }
 
     /* ─── FEATURED ARTICLE ─────────────────────────────── */
@@ -901,13 +885,11 @@
     </nav>
   </header>
 
-  <div class="v-hero-block" id="vHeroBlock">
-    <div class="v-emblem" id="vEmblem">
-      <img src="/img/V-light.svg" class="v-img v-img--light" alt="V.">
-      <img src="/img/V-dark.svg" class="v-img v-img--dark" alt="V.">
-    </div>
-    <div class="v-wordmark" id="vWordmark">Voussoir.</div>
-    <div class="v-divider"></div>
+  <div class="v-block" id="vBlock">
+    <img src="/img/V-light.svg" id="vImg" class="v-img v-img--light" alt="">
+    <img src="/img/V-dark.svg" class="v-img v-img--dark" alt="">
+    <p class="v-wordmark">Voussoir.</p>
+    <hr class="v-rule">
   </div>
 
   <!-- ─── MENU OVERLAY ──────────────────────────────── -->
@@ -1163,26 +1145,56 @@
           if (!localStorage.getItem(KEY)) html.removeAttribute('data-theme');
         });
 
-      /* ── V. scroll animation ── */
-      let emblemFrame = null;
+      (function() {
+        const vBlock = document.getElementById('vBlock');
+        if (!vBlock) return;
 
-      function syncVState() {
-        emblemFrame = null;
-        if (window.innerWidth < 768) {
-          document.body.classList.remove('is-scrolled');
-          return;
+        const imgs = vBlock.querySelectorAll('.v-img');
+        const wordmark = vBlock.querySelector('.v-wordmark');
+        const SCROLL_THRESHOLD = 80;
+        let scrolled = false;
+
+        function getActiveImg() {
+          const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          return vBlock.querySelector(dark ? '.v-img--dark' : '.v-img--light');
         }
-        document.body.classList.toggle('is-scrolled', window.scrollY > 100);
-      }
 
-      function requestVStateUpdate() {
-        if (emblemFrame !== null) return;
-        emblemFrame = requestAnimationFrame(syncVState);
-      }
+        window.addEventListener('scroll', function() {
+          const y = window.scrollY;
+          if (y > SCROLL_THRESHOLD && !scrolled) {
+            scrolled = true;
+            const img = getActiveImg();
+            const rect = img.getBoundingClientRect();
+            imgs.forEach(function(item) {
+              item.classList.remove('is-scrolled', 'is-entering');
+            });
+            img.style.position = 'fixed';
+            img.style.top = rect.top + 'px';
+            img.style.left = rect.left + 'px';
+            img.style.width = rect.width + 'px';
+            img.style.transition = 'none';
+            img.offsetHeight;
+            img.style.transition = 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)';
+            img.style.top = '14px';
+            img.style.left = '108px';
+            img.style.width = '32px';
+            img.classList.add('is-scrolled');
+            wordmark.style.transition = 'opacity 0.2s';
+            wordmark.style.opacity = '0';
 
-      window.addEventListener('scroll', requestVStateUpdate, { passive: true });
-      window.addEventListener('resize', requestVStateUpdate);
-      requestVStateUpdate();
+          } else if (y <= SCROLL_THRESHOLD && scrolled) {
+            scrolled = false;
+            const img = getActiveImg();
+            img.style.position = '';
+            img.style.top = '';
+            img.style.left = '';
+            img.style.width = '';
+            img.style.transition = '';
+            img.classList.remove('is-scrolled', 'is-entering');
+            wordmark.style.opacity = '1';
+          }
+        }, { passive: true });
+      })();
 
       /* ── Menu overlay ── */
       let menuOpen = false;
