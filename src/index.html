@@ -270,6 +270,9 @@
     .nav-icon-btn:hover { opacity: 0.5; }
     .nav-icon-btn svg { width: 20px; height: 20px; }
 
+    /* Hide nav line when overlay is open */
+    .site-header.menu-open .nav-line { opacity: 0; }
+
     /* Hamburger / close icon swap */
     .icon-close { display: none; }
     .menu-open .icon-burger { display: none; }
@@ -301,7 +304,6 @@
       left: 0;
       right: 0;
       background: var(--paper);
-      border-top: 1px solid var(--rule);
       border-bottom: 1px solid var(--rule);
       z-index: 199;
       padding: 52px 0 60px;
